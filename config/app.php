@@ -2,6 +2,9 @@
 
 return [
 
+    'school_name' => env('SCHOOL_NAME', 'School'),
+    'app_category' => env('APP_CATEGORY', 'App'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
