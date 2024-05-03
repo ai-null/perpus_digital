@@ -21,9 +21,9 @@ Route::prefix('auth')->group(function () {
         return view('auth/login');
     }]);
 
-    Route::get('/register', ['as' => 'register', 'uses' => function () {
-        return view('auth/login');
-    }]);
+    Route::get('/register', function () {
+        return view('auth/register');
+    })->name('register');
 });
 
 // todo: add dashboard with login middleware

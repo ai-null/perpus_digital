@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row" style="height: 100vh; top: 0; left: 0; background: white;">
-        <div class="col-5 col-sm-3 position-relative urbanist-semibold" style="width: 60%; color: black;">
+    <div class="row" style="height: 100vh; left: 0; background: white;">
+        <div class="col-5 col-sm-3 position-relative urbanist-semibold" style="margin-top: 50px;width: 60%; color: black;">
             <div class="position-absolute top-50 start-50 translate-middle" style="width: 70%; padding: 50px;">
                 <div style="display: grid;" class="text-center">
                     <span class="amaranth-regular" style="color: black; font-size: 32px;" >Selamat Datang</span>
@@ -18,6 +18,12 @@
                         <input type="number" class="form-control" placeholder="Masukkan NISN" id="nisn"
                             aria-describedby="nisn-input">
                     </div>
+
+                    <div class="mb-3">
+                        <label for="nisn" class="form-label">Nama Lengkap</label>
+                        <input type="number" class="form-control" placeholder="Masukkan Nama Lengkap" id="nama"
+                            aria-describedby="nisn-input">
+                    </div>
         
                     <div class="mb-3">
                         <label for="password" class="form-label">Kata Sandi</label>
@@ -26,11 +32,19 @@
                             aria-describedby="password-input">
                         </div>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Konfirmasi Kata Sandi</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" placeholder="Masukkan Konfirmasi Kata Sandi" id="confirmation"
+                            aria-describedby="password-input">
+                        </div>
+                    </div>
         
                     <button class="w-100 btn btn-primary" style="margin-top: 48px; background-color: #6499E9;">Masuk</button>
         
                     <div style="margin-top: 56px;" class="text-center">
-                        <span>Belum punya akun? <a style="color: #1746A2; text-decoration: none;" href="{{route('register')}}">Daftar Sekarang</a></span>
+                        <span>Sudah punya akun? <a style="color: #1746A2; text-decoration: none;" href="{{route('login')}}">Masuk Sekarang</a></span>
                     </div>
                 </form>
             </div>
