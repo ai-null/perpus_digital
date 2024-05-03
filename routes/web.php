@@ -3,17 +3,27 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('index');
+    return view('general/index');
 });
 
-Route::get('/login', function() {
-    return view('login');
+Route::get('/contacts', ['as' => 'contacts', 'uses' => function () {
+    return view('general/contacts');
+}]);
+
+Route::get('/dashboard', function () {
+    return redirect('/');
+})->name('dashboard');
+
+
+// authentication
+Route::prefix('auth')->group(function () {
+    Route::get('/login', ['as' => 'login', 'uses' => function () {
+        return view('auth/login');
+    }]);
+
+    Route::get('/register', ['as' => 'register', 'uses' => function () {
+        return view('auth/login');
+    }]);
 });
 
-Route::get('/register', function() {
-    return 'register';
-});
-
-Route::get('/contacts', function() {
-    return view('contacts');
-});
+// todo: add dashboard with login middleware

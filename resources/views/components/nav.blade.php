@@ -25,18 +25,18 @@
             <!-- Authentication Links -->
             <a class="btn btn btn-outline-light nav-link urbanist-semibold"
                 style="border: 1px solid transparent; color: black; margin-right: 14px; padding: 14px 22px;"
-                href="dashboard">Beranda</a>
+                href="{{ route('dashboard') }}">Beranda</a>
 
             <a class="btn btn btn-outline-light nav-link urbanist-semibold"
                 style="border: 1px solid transparent; color: black; margin-right: 24px; padding: 14px 22px;"
-                href="contacts">Kontak</a>
+                href="{{ route('contacts') }}">Kontak</a>
 
             <a class="btn btn btn-outline-light nav-link urbanist-semibold"
                 style="border: 1px solid transparent; color: #6499E9; margin-right: 24px; padding: 14px 22px;"
-                href="login">Masuk</a>
+                href="{{ route('login') }}">Masuk</a>
 
             <a class="btn btn-primary nav-link urbanist-semibold"
-                style="background-color: #6499E9; color: white; padding: 14px 22px;" href="register">Daftar</a>
+                style="background-color: #6499E9; color: white; padding: 14px 22px;" href="{{route('register')}}">Daftar</a>
             {{-- @else
             @if ($count > 0)
                 <li class="nav-item">
