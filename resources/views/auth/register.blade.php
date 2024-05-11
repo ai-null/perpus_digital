@@ -25,25 +25,27 @@
                             aria-describedby="nisn-input">
                     </div>
         
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Kata Sandi</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" placeholder="Masukkan Kata Sandi" id="password"
-                            aria-describedby="password-input">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="password" class="form-label">Kata Sandi</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" placeholder="Masukkan Kata Sandi" id="password"
+                                aria-describedby="password-input">
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Konfirmasi Kata Sandi</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" placeholder="Masukkan Konfirmasi Kata Sandi" id="confirmation"
-                            aria-describedby="password-input">
+    
+                        <div class="col">
+                            <label for="password" class="form-label">Konfirmasi Kata Sandi</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" placeholder="Masukkan Konfirmasi Kata Sandi" id="confirmation"
+                                aria-describedby="password-input">
+                            </div>
                         </div>
                     </div>
         
-                    <button class="w-100 btn btn-primary" style="margin-top: 48px; background-color: #6499E9;">Masuk</button>
+                    <button class="w-100 btn btn-primary" style="margin-top: 36px; background-color: #6499E9;">Masuk</button>
         
-                    <div style="margin-top: 56px;" class="text-center">
+                    <div style="margin-top: 36px;" class="text-center">
                         <span>Sudah punya akun? <a style="color: #1746A2; text-decoration: none;" href="{{route('login')}}">Masuk Sekarang</a></span>
                     </div>
                 </form>
