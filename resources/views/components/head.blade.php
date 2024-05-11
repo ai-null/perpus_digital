@@ -20,7 +20,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amaranth&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
     <style>
         .urbanist-medium {
@@ -43,11 +42,10 @@
             font-style: normal;
         }
 
-        .inter-regular {
-            font-family: "Inter", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 400;
-            font-style: normal;
+        .amaranth-bold {
+            font-family: "Amaranth", sans-serif;
+            font-weight: 500;
+            font-style: bold;
         }
 
         .inspect {

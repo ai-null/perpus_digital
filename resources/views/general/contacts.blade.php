@@ -20,7 +20,7 @@
                         <img src="/img/ic_location.webp" height="40px" />
                         <span class="urbanist-semibold"
                             style="font-size: 20px; color: #1746A2; margin-top: 24px;">Lokasi</span>
-                        <span class="inter-regular" style="font-size: 16px; color: #7F7F7F; margin-top: 4px;">Jl. Raya Sutorejo
+                        <span class="amaranth-regular" style="font-size: 16px; color: #7F7F7F; margin-top: 4px;">Jl. Raya Sutorejo
                             No.98-100</span>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                         <img src="/img/ic_whatsapp.webp" height="40px" />
                         <span class="urbanist-semibold"
                             style="font-size: 20px; color: #1746A2; margin-top: 24px;">Whatsapp</span>
-                        <span class="inter-regular" style="font-size: 16px; color: #7F7F7F; margin-top: 4px;">Chat dengan admin perpustakaan</span>
+                        <span class="amaranth-regular" style="font-size: 16px; color: #7F7F7F; margin-top: 4px;">Chat dengan admin perpustakaan</span>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                         <img src="/img/ic_gmail.webp" height="40px" />
                         <span class="urbanist-semibold"
                             style="font-size: 20px; color: #1746A2; margin-top: 24px;">Email</span>
-                        <span class="inter-regular" style="font-size: 16px; color: #7F7F7F; margin-top: 4px;">hubungi admin melalui email</span>
+                        <span class="amaranth-regular" style="font-size: 16px; color: #7F7F7F; margin-top: 4px;">hubungi admin melalui email</span>
                     </div>
                 </div>
             </div>

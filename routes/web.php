@@ -14,6 +14,10 @@ Route::get('/dashboard', function () {
     return redirect('/');
 })->name('dashboard');
 
+Route::get('/gallery', function () {
+    return view('general/gallery');
+})->name('gallery');
+
 
 // authentication
 Route::prefix('auth')->group(function () {
