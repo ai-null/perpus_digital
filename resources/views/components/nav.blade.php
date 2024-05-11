@@ -28,7 +28,7 @@
                 href="{{ route('dashboard') }}">Beranda</a>
 
             <a class="btn btn btn-outline-light nav-link urbanist-semibold"
-                style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('contacts') ? '#3962D7' : '#BDBDBD' }}; margin-right: 24px; padding: 14px 22px;"
+                style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('contacts') ? '#3962D7' : '#BDBDBD' }}; margin-right: 14px; padding: 14px 22px;"
                 href="{{ route('contacts') }}">Kontak</a>
 
             <a class="btn btn btn-outline-light nav-link urbanist-semibold"
