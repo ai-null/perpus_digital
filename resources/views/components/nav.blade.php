@@ -23,24 +23,27 @@
         <!-- Right Side Of Navbar -->
         <div class="d-flex">
             <!-- Authentication Links -->
-            <a class="btn btn btn-outline-light nav-link urbanist-semibold"
-                style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('/') ? '#3962D7' : '#BDBDBD' }}; margin-right: 14px; padding: 14px 22px;"
-                href="{{ route('dashboard') }}">Beranda</a>
+            @guest
+                <a class="btn btn btn-outline-light nav-link urbanist-semibold"
+                    style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('/') ? '#3962D7' : '#BDBDBD' }}; margin-right: 14px; padding: 14px 22px;"
+                    href="{{ route('dashboard') }}">Beranda</a>
 
-            <a class="btn btn btn-outline-light nav-link urbanist-semibold"
-                style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('contacts') ? '#3962D7' : '#BDBDBD' }}; margin-right: 14px; padding: 14px 22px;"
-                href="{{ route('contacts') }}">Kontak</a>
+                <a class="btn btn btn-outline-light nav-link urbanist-semibold"
+                    style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('contacts') ? '#3962D7' : '#BDBDBD' }}; margin-right: 14px; padding: 14px 22px;"
+                    href="{{ route('contacts') }}">Kontak</a>
 
-            <a class="btn btn btn-outline-light nav-link urbanist-semibold"
-                style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('gallery') ? '#3962D7' : '#BDBDBD' }}; margin-right: 24px; padding: 14px 22px;"
-                href="{{ route('gallery') }}">Galeri</a>
+                <a class="btn btn btn-outline-light nav-link urbanist-semibold"
+                    style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('gallery') ? '#3962D7' : '#BDBDBD' }}; margin-right: 24px; padding: 14px 22px;"
+                    href="{{ route('gallery') }}">Galeri</a>
 
-            <a class="btn btn btn-outline-light nav-link urbanist-semibold"
-                style="border: 1px solid transparent;font-size: 16px; background-color: #DAE9FF; color: #3962D7; margin-right: 24px; padding: 14px 22px;"
-                href="{{ route('login') }}">Masuk</a>
+                <a class="btn btn btn-outline-light nav-link urbanist-semibold"
+                    style="border: 1px solid transparent;font-size: 16px; background-color: #DAE9FF; color: #3962D7; margin-right: 24px; padding: 14px 22px;"
+                    href="{{ route('login') }}">Masuk</a>
 
-            <a class="btn btn-primary nav-link urbanist-semibold"
-                style="background-color: #6499E9; font-size: 16px;color: white; padding: 14px 22px;" href="{{route('register')}}">Daftar</a>
+                <a class="btn btn-primary nav-link urbanist-semibold"
+                    style="background-color: #6499E9; font-size: 16px;color: white; padding: 14px 22px;" href="{{route('register')}}">Daftar</a>
+            @endguest
+
             {{-- @else
             @if ($count > 0)
                 <li class="nav-item">
