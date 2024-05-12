@@ -12,22 +12,23 @@
                     <span class="urbanist-medium" style="margin-top: 16px; color: #BDBDBD; font-size: 16px;">Masuk untuk pinjam buku yang kamu inginkan</span>
                 </div>
         
-                <form action="post" style="margin-top: 52px;">
+                <form method="post" action="{{ route('login') }}" style="margin-top: 52px;">
+                    @csrf
                     <div class="mb-3">
                         <label for="nisn" class="form-label">NISN</label>
-                        <input type="number" class="form-control" placeholder="Masukkan NISN" id="nisn"
+                        <input type="number" name="nisn" class="form-control" placeholder="Masukkan NISN" id="nisn"
                             aria-describedby="nisn-input">
                     </div>
         
                     <div class="mb-3">
                         <label for="password" class="form-label">Kata Sandi</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" placeholder="Masukkan Kata Sandi" id="password"
+                            <input type="password" name="password" class="form-control" placeholder="Masukkan Kata Sandi" id="password"
                             aria-describedby="password-input">
                         </div>
                     </div>
         
-                    <button class="w-100 btn btn-primary" style="margin-top: 48px; background-color: #6499E9;">Masuk</button>
+                    <button class="w-100 btn btn-primary" type="submit" style="margin-top: 48px; background-color: #6499E9;">Masuk</button>
         
                     <div style="margin-top: 56px;" class="text-center">
                         <span>Belum punya akun? <a style="color: #1746A2; text-decoration: none;" href="{{route('register')}}">Daftar Sekarang</a></span>
