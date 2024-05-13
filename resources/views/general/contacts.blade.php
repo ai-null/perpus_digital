@@ -17,7 +17,7 @@
             <div class="col">
                 <div class="card position-relative top-50 start-50 translate-middle" style="padding: 16px; cursor: pointer; box-shadow: 0px 4px 10px #00000010">
                     <div class="card-body" style="display:grid;">
-                        <img src="/img/ic_location.webp" height="40px" />
+                        <img src="/img/icon/ic_location.webp" height="40px" />
                         <span class="urbanist-semibold"
                             style="font-size: 20px; color: #1746A2; margin-top: 24px;">Lokasi</span>
                         <span class="amaranth-regular" style="font-size: 16px; color: #7F7F7F; margin-top: 4px;">Jl. Raya Sutorejo
@@ -28,7 +28,7 @@
             <div class="col">
                 <div class="card position-relative top-50 start-50 translate-middle" style="padding: 16px; cursor: pointer; box-shadow: 0px 4px 10px #00000010">
                     <div class="card-body" style="display:grid;">
-                        <img src="/img/ic_whatsapp.webp" height="40px" />
+                        <img src="/img/icon/ic_whatsapp.webp" height="40px" />
                         <span class="urbanist-semibold"
                             style="font-size: 20px; color: #1746A2; margin-top: 24px;">Whatsapp</span>
                         <span class="amaranth-regular" style="font-size: 16px; color: #7F7F7F; margin-top: 4px;">Chat dengan admin perpustakaan</span>
@@ -38,7 +38,7 @@
             <div class="col">
                 <div class="card position-relative top-50 start-50 translate-middle" style="padding: 16px; cursor: pointer; box-shadow: 0px 4px 10px #00000010">
                     <div class="card-body" style="display:grid;">
-                        <img src="/img/ic_gmail.webp" height="40px" />
+                        <img src="/img/icon/ic_gmail.webp" height="40px" />
                         <span class="urbanist-semibold"
                             style="font-size: 20px; color: #1746A2; margin-top: 24px;">Email</span>
                         <span class="amaranth-regular" style="font-size: 16px; color: #7F7F7F; margin-top: 4px;">hubungi admin melalui email</span>

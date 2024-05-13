@@ -19,7 +19,7 @@
             <button style="background-color: #6499E9; margin-top: 80px; font-size: 16px;" class="btn btn-primary" style="urbanist-semibold">Mulai Sekarang</button>
         </div>
         <div class="col-sm-6">
-            <img class="img-fluid" src="/img/side_illustration.webp" alt="illustration">
+            <img class="img-fluid" src="/img/cover/side_illustration.webp" alt="illustration">
         </div>
     </div>
 </div>

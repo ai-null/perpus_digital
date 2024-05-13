@@ -4,7 +4,7 @@
     @include('components.nav')
 
     <div
-        style="background-image: url('img/cover_curved_blue_dashboard.webp');
+        style="background-image: url('img/cover/cover_curved_blue_dashboard.webp');
     background-position: top; background-repeat: no-repeat;
     z-index: -99;
     background-size: contain; width: 100%; height: 100%;position: absolute;">
@@ -31,7 +31,7 @@
                 @for ($i = 0; $i < $numberOfCards; $i++)
                     <div class="col-sm-3 mx-3 mt-5 card"
                         style="width: 18rem; padding: 0px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15); border: none;">
-                        <img src="/img/cover.webp" height="300px" width="100%" style="object-fit: cover;"
+                        <img src="/img/cover/cover.webp" height="300px" width="100%" style="object-fit: cover;"
                             class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title amaranth-regular" style="font-size: 20px; color: black;">Atomic Habits</h5>

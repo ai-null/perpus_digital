@@ -2,7 +2,7 @@
     style="background-color: white;">
     <a class="navbar-brand" href="{{ url('/') }}">
         <div class="row align-items-center">
-            <img class="col" src="/img/ic_logo.webp" alt="logo" class="mr-2" height="72" width="72">
+            <img class="col" src="/img/icon/ic_logo.webp" alt="logo" class="mr-2" height="72" width="72">
             <div class="col">
                 <div class="row amaranth-regular" style="font-size: 24px; color: #6499E9;">
                     {{ config('app.school_name') }}</div>

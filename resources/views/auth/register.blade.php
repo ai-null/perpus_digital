@@ -70,7 +70,7 @@
             </div>
             <div class="col-4 position-relative" style="background: transparent;">
                 <img class="position-absolute top-50 start-50 translate-middle"
-                    style="padding: 50px; width: max-content; height: 100vh;" src="/img/cover.webp" alt="login">
+                    style="padding: 50px; width: max-content; height: 100vh;" src="/img/cover/cover.webp" alt="login">
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@
     <div style="position: absolute; z-index: -99; top: 80px; left: 0; width: 100%; height: 100%;">
         {{-- BACKGROUND --}}
         <div style="
-        filter: blur(3px); -webkit-filter: blur(3px);background-image: url('img/gallery_cover.webp');
+        filter: blur(3px); -webkit-filter: blur(3px);background-image: url('img/cover/gallery_cover.webp');
         background-position: center; background-repeat: no-repeat; background-size: cover; width: 100%; height: 100%;">
         </div>
 
@@ -21,7 +21,7 @@
                     <div class="card position-relative top-50 start-50 translate-middle" style="cursor: pointer; box-shadow: 0px 4px 10px #00000010">
                         <div class="card-body" style="display:grid;">
                             <div style="width: 100%;position: relative;background-color: #6499E9;height: 108px;border-radius: 0 0 8px 8px;"></div>
-                            <img src="img/gallery_1.jpeg" style="height: 292px;width: 100%;z-index: -1;background-repeat: no-repeat;background-size: cover;position: relative;top: -10%;">
+                            <img src="img/cover/gallery_1.jpeg" style="height: 292px;width: 100%;z-index: -1;background-repeat: no-repeat;background-size: cover;position: relative;top: -10%;">
                         </div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                     <div class="card position-relative top-50 start-50 translate-middle" style="cursor: pointer; box-shadow: 0px 4px 10px #00000010">
                         <div class="card-body" style="display:grid;">
                             <div style="width: 100%;position: relative;background-color: #6499E9;height: 108px;border-radius: 0 0 8px 8px;"></div>
-                            <img src="img/gallery_1.jpeg" style="height: 292px;width: 100%;z-index: -1;background-repeat: no-repeat;background-size: cover;position: relative;top: -10%;">
+                            <img src="img/cover/gallery_1.jpeg" style="height: 292px;width: 100%;z-index: -1;background-repeat: no-repeat;background-size: cover;position: relative;top: -10%;">
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="card position-relative top-50 start-50 translate-middle" style="cursor: pointer; box-shadow: 0px 4px 10px #00000010">
                         <div class="card-body" style="display:grid;">
                             <div style="width: 100%;position: relative;background-color: #6499E9;height: 108px;border-radius: 0 0 8px 8px;"></div>
-                            <img src="img/gallery_1.jpeg" style="height: 292px;width: 100%;z-index: -1;background-repeat: no-repeat;background-size: cover;position: relative;top: -10%;">
+                            <img src="img/cover/gallery_1.jpeg" style="height: 292px;width: 100%;z-index: -1;background-repeat: no-repeat;background-size: cover;position: relative;top: -10%;">
                         </div>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
         <div style="position: relative; top: -25%; padding: 90px 98px;">
             <span class="amaranth-bold" style="color: #6499E9; font-size: 32px;">Momen di Perpustakaan</span>
 
-            <img src="img/gallery_1.jpeg" width="100%" style="margin-top: 32px;">
-            <img src="img/gallery_1.jpeg" width="100%" style="margin-top: 32px;">
+            <img src="img/cover/gallery_1.jpeg" width="100%" style="margin-top: 32px;">
+            <img src="img/cover/gallery_1.jpeg" width="100%" style="margin-top: 32px;">
         </div>
     </div>
 @endsection
