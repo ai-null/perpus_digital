@@ -22,6 +22,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Amaranth&display=swap" rel="stylesheet">
 
     <style>
+        .urbanist-regular {
+            font-family: "Urbanist", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+
         .urbanist-medium {
             font-family: "Urbanist", sans-serif;
             font-optical-sizing: auto;

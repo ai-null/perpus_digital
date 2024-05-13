@@ -18,19 +18,21 @@ Route::get('/gallery', function () {
 
 
 // authentication
-Route::prefix('auth')->group(function () {
-    Route::post('/login', [AuthController::class, 'authenticate']);
-    Route::get('/login', ['as' => 'login', 'uses' => function () {
-        return view('auth/login');
-    }]);
-
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::get('/register', function () {
-        return view('auth/register');
-    })->name('register');
+Route::middleware('guest')->group(function() {
+    Route::prefix('auth')->group(function () {
+        Route::post('/login', [AuthController::class, 'authenticate']);
+        Route::get('/login', ['as' => 'login', 'uses' => function () {
+            return view('auth/login');
+        }]);
+    
+        Route::post('/register', [AuthController::class, 'register']);
+        Route::get('/register', function () {
+            return view('auth/register');
+        })->name('register');
+    });
 });
 
 // authenticated user
 Route::get('/dashboard', function () {
-    return 'Login';
-})->name('dashboard')->middleware('auth.basic');;
+    return view('user/dashboard');
+})->name('dashboard')->middleware('auth');;

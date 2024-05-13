@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="padding: 5px 80px 5px 100px" style="background-color: white;">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="padding: 5px 80px 5px 100px"
+    style="background-color: white;">
     <a class="navbar-brand" href="{{ url('/') }}">
         <div class="row align-items-center">
             <img class="col" src="/img/ic_logo.webp" alt="logo" class="mr-2" height="72" width="72">
@@ -41,34 +42,39 @@
                     href="{{ route('login') }}">Masuk</a>
 
                 <a class="btn btn-primary nav-link urbanist-semibold"
-                    style="background-color: #6499E9; font-size: 16px;color: white; padding: 14px 22px;" href="{{route('register')}}">Daftar</a>
+                    style="background-color: #6499E9; font-size: 16px;color: white; padding: 14px 22px;"
+                    href="{{ route('register') }}">Daftar</a>
             @endguest
 
-            {{-- @else
-            @if ($count > 0)
-                <li class="nav-item">
-                    <a class="nav-link" href="/keranjang">Keranjang <span
-                            class="badge badge-primary">{{ $count }}</span></a>
-                </li>
-            @endif
-            <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->name }}
-                </a>
+            @auth
+                <a class="btn btn btn-outline-light nav-link urbanist-semibold"
+                    style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('dashboard') ? '#3962D7' : '#BDBDBD' }}; margin-right: 14px; padding: 14px 22px;"
+                    href="{{ route('dashboard') }}">Koleksi Buku</a>
 
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                <a class="btn btn btn-outline-light nav-link urbanist-semibold"
+                    style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('/') ? '#3962D7' : '#BDBDBD' }}; margin-right: 14px; padding: 14px 22px;"
+                    href="{{ route('dashboard') }}">Aktivitas</a>
+
+
+                {{-- <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}
                     </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </div>
-            </li> --}}
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </li> --}}
+            @endauth
         </div>
     </div>
 </nav>
