@@ -27,7 +27,7 @@
             @guest
                 <a class="btn btn btn-outline-light nav-link urbanist-semibold"
                     style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('/') ? '#3962D7' : '#BDBDBD' }}; margin-right: 14px; padding: 14px 22px;"
-                    href="{{ route('dashboard') }}">Beranda</a>
+                    href="{{ route('index') }}">Beranda</a>
 
                 <a class="btn btn btn-outline-light nav-link urbanist-semibold"
                     style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('contacts') ? '#3962D7' : '#BDBDBD' }}; margin-right: 14px; padding: 14px 22px;"
@@ -62,16 +62,26 @@
                 <div class="nav-link" style="margin: 0 8px 0 24px; height: 62px; width: 62px; border-radius: 100px; background-color: #D9D9D9;"></div>
 
                 <div class="nav-link" style="border: 1px solid #6499E9; border-radius: 40px;">
-                    <div class="row text-start align-items-center" style="padding: 8px 12px;">
-                        <div class="col">
-                            <div class="urbanist-semibold" style="font-size: 14px;
-                            color: black; overflow: hidden;-webkit-line-clamp: 1;
-                            line-clamp: 1;">Nama Lengkap</div>
-                            <div class="urbanist-regular" style="font-size: 12px; color: #7F7F7F;">NISN</div>
+                    <div class="dropdown" style="padding: 8px 12px; cursor: pointer;">
+                        <div class="row text-start align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="col">
+                                <div class="urbanist-semibold" style="font-size: 14px;
+                                color: black; overflow: hidden;-webkit-line-clamp: 1;
+                                line-clamp: 1;">Nama Lengkap</div>
+                                <div class="urbanist-regular" style="font-size: 12px; color: #7F7F7F;">NISN</div>
+                            </div>
+                            <div class="col-auto">
+                                <img src="/img/icon/ic_arrow_down.webp" height="24px" width="24px" alt="more options">
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <img src="/img/icon/ic_arrow_down.webp" height="24px" width="24px" alt="more options">
-                        </div>
+
+                        {{-- DROPDOWN MENU --}}
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Riwayat Pinjam</a></li>
+                            <li><a class="dropdown-item" href="#">Daftar Baca</a></li>
+                            <li><a class="dropdown-item" href="#">Keluar</a></li>
+                          </ul>
                     </div>
                 </div>
 
