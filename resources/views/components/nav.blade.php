@@ -22,7 +22,7 @@
         <ul class="navbar-nav me-auto"></ul>
 
         <!-- Right Side Of Navbar -->
-        <div class="d-flex">
+        <div class="d-flex align-items-center text-center">
             <!-- Authentication Links -->
             @guest
                 <a class="btn btn btn-outline-light nav-link urbanist-semibold"
@@ -52,8 +52,28 @@
                     href="{{ route('dashboard') }}">Koleksi Buku</a>
 
                 <a class="btn btn btn-outline-light nav-link urbanist-semibold"
-                    style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('/') ? '#3962D7' : '#BDBDBD' }}; margin-right: 14px; padding: 14px 22px;"
+                    style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('/') ? '#3962D7' : '#BDBDBD' }}; margin-right: 24px; padding: 14px 22px;"
                     href="{{ route('dashboard') }}">Aktivitas</a>
+
+                <a href="#">
+                    <img class="nav-link" height="48px" width="48px" src="/img/icon/ic_bell.webp" alt="notification">
+                </a>
+
+                <div class="nav-link" style="margin: 0 8px 0 24px; height: 62px; width: 62px; border-radius: 100px; background-color: #D9D9D9;"></div>
+
+                <div class="nav-link" style="border: 1px solid #6499E9; border-radius: 40px;">
+                    <div class="row text-start align-items-center" style="padding: 8px 12px;">
+                        <div class="col">
+                            <div class="urbanist-semibold" style="font-size: 14px;
+                            color: black; overflow: hidden;-webkit-line-clamp: 1;
+                            line-clamp: 1;">Nama Lengkap</div>
+                            <div class="urbanist-regular" style="font-size: 12px; color: #7F7F7F;">NISN</div>
+                        </div>
+                        <div class="col-auto">
+                            <img src="/img/icon/ic_arrow_down.webp" height="24px" width="24px" alt="more options">
+                        </div>
+                    </div>
+                </div>
 
 
                 {{-- <li class="nav-item dropdown">
