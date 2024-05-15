@@ -10,5 +10,5 @@
     <img src="https://raw.githubusercontent.com/ai-null/perpus_digital/master/public/img/demo/contacts.png" width="30%" />
     <img src="https://raw.githubusercontent.com/ai-null/perpus_digital/master/public/img/demo/login.png" width="30%" />
     <img src="https://raw.githubusercontent.com/ai-null/perpus_digital/master/public/img/demo/register.png" width="30%" />
-    <img src="https://raw.githubusercontent.com/ai-null/perpus_digital/master/public/img/demo/index.png" width="30%" />
+    <img src="https://raw.githubusercontent.com/ai-null/perpus_digital/master/public/img/demo/dashboard" width="30%" />
 </p>
