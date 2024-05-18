@@ -48,7 +48,7 @@
             <span class="amaranth-bold" style="color: #6499E9; font-size: 32px;">Momen di Perpustakaan</span>
 
             <img src="img/cover/gallery_1.jpeg" width="100%" style="margin-top: 32px;">
-            <img src="img/cover/gallery_1.jpeg" width="100%" style="margin-top: 32px;">
+            <img src="img/cover/gallery_2.jpeg" width="100%" style="margin-top: 32px;">
         </div>
     </div>
 @endsection
