@@ -59,15 +59,19 @@
                     <img class="nav-link" height="48px" width="48px" src="/img/icon/ic_bell.webp" alt="notification">
                 </a>
 
-                <div class="nav-link" style="margin: 0 8px 0 24px; height: 62px; width: 62px; border-radius: 100px; background-color: #D9D9D9;"></div>
+                <div class="nav-link"
+                    style="margin: 0 8px 0 24px; height: 62px; width: 62px; border-radius: 100px; background-color: #D9D9D9;">
+                </div>
 
                 <div class="nav-link" style="border: 1px solid #6499E9; border-radius: 40px;">
                     <div class="dropdown" style="padding: 8px 12px; cursor: pointer;">
                         <div class="row text-start align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="col">
-                                <div class="urbanist-semibold" style="font-size: 14px;
+                                <div class="urbanist-semibold"
+                                    style="font-size: 14px;
                                 color: black; overflow: hidden;-webkit-line-clamp: 1;
-                                line-clamp: 1;">Nama Lengkap</div>
+                                line-clamp: 1;">
+                                    Nama Lengkap</div>
                                 <div class="urbanist-regular" style="font-size: 12px; color: #7F7F7F;">NISN</div>
                             </div>
                             <div class="col-auto">
@@ -76,12 +80,19 @@
                         </div>
 
                         {{-- DROPDOWN MENU --}}
+
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Riwayat Pinjam</a></li>
-                            <li><a class="dropdown-item" href="#">Daftar Baca</a></li>
-                            <li><a class="dropdown-item" href="#">Keluar</a></li>
-                          </ul>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Riwayat Pinjam</a></li>
+                                <li><a class="dropdown-item" href="#">Daftar Baca</a></li>
+                                <li><button type="submit" class="dropdown-item">
+                                        Keluar
+                                    </button>
+                                </li>
+                            </form>
+                        </ul>
                     </div>
                 </div>
 
