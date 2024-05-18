@@ -6,6 +6,14 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/general.php';
 
 // authenticated user
-Route::get('/dashboard', function () {
-    return view('user/dashboard');
-})->name('dashboard')->middleware('auth');;
+Route::middleware('auth')->group(function() {
+    Route::get('/dashboard', function () {
+        return view('user/dashboard');
+    })->name('dashboard');
+});
+
+Route::prefix('book')->group(function() {
+    Route::get('/detail', function () {
+        return view('book/detail');
+    })->name('borrow_book');
+});

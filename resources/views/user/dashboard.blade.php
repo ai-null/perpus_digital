@@ -63,7 +63,7 @@
                             <h5 class="card-title amaranth-regular" style="font-size: 20px; color: black;">Atomic Habits
                             </h5>
                             <p class="card-text urbanist-regular" style="font-size: 14px; color: #7F7F7F;">Nama Penulis.</p>
-                            <a href="#" class="urbanis-semibold btn btn-primary"
+                            <a href="{{ route('borrow_book') }}" class="urbanis-semibold btn btn-primary"
                                 style="background-color: #6499E9; border: none; border-radius: 4px; color: white; font-size: 16px;">Pinjam</a>
                         </div>
                     </div>
