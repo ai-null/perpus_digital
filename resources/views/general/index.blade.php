@@ -16,7 +16,7 @@
                 pengetahuan. SMAM7 library hadir untuk memudahkan pembelajaran dan eksplorasi pengetahuan.
             </p>
 
-            <a href="{{route('login')}}" style="background-color: #6499E9; margin-top: 80px; font-size: 16px;" class="btn btn-primary" style="urbanist-semibold">Mulai Sekarang</a>
+            <a href="{{route('dashboard')}}" style="background-color: #6499E9; margin-top: 80px; font-size: 16px;" class="btn btn-primary" style="urbanist-semibold">Mulai Sekarang</a>
         </div>
         <div class="col-sm-6">
             <img class="img-fluid" src="/img/cover/side_illustration.webp" alt="illustration">

@@ -8,9 +8,7 @@ require __DIR__ . '/general.php';
 
 // authenticated user
 Route::middleware('auth')->group(function() {
-    Route::get('/dashboard', function () {
-        return view('user/dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
 });
 
 
