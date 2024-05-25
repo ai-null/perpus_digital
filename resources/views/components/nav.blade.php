@@ -71,8 +71,8 @@
                                     style="font-size: 14px;
                                 color: black; overflow: hidden;-webkit-line-clamp: 1;
                                 line-clamp: 1;">
-                                    Nama Lengkap</div>
-                                <div class="urbanist-regular" style="font-size: 12px; color: #7F7F7F;">NISN</div>
+                                    {{ Auth::user()->name }}</div>
+                                <div class="urbanist-regular" style="font-size: 12px; color: #7F7F7F;">{{ Auth::user()->nisn }}</div>
                             </div>
                             <div class="col-auto">
                                 <img src="/img/icon/ic_arrow_down.webp" height="24px" width="24px" alt="more options">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
@@ -12,6 +13,10 @@ Route::middleware('auth')->group(function() {
     })->name('dashboard');
 });
 
+
+// Route::get('/user/{id}', function (Request $request, string $id) {
+//     return 'User '.$id;
+// });
 Route::prefix('book')->group(function() {
     Route::get('/detail', function () {
         return view('book/detail');
