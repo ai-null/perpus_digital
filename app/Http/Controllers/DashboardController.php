@@ -9,7 +9,7 @@ class DashboardController extends Controller
     function showDashboard(UserProfileProvider $UserProfileProvider)
     {
         if ($UserProfileProvider->isAdmin()) {
-            return 'Hello admin';
+            return view('admin.dashboard');
         } else {
             return view('user.dashboard');
         }
