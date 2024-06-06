@@ -25,15 +25,25 @@
                 <div class="card">
                     <div class="card-body">
 
+                        @if ($errors->any())
+                            <div class="alert alert-danger mt-4">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         @if ($success)
-                            <div class="alert alert-${type} alert-dismissible" role="alert">
+                            <div class="alert alert-success alert-dismissible" role="alert">
                                 <div>Sukses menambahkan buku.</div>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('addBook') }}">
+                        <form method="POST" action="{{ route('addBook') }}" enctype="multipart/form-data">
                             @csrf
 
                             <h4>Data buku</h4>
@@ -92,9 +102,11 @@
                                 </div>
 
                                 <div class="col-auto">
-                                    <img style="height: 400px;" src="/img/cover/cover.webp" alt="cover preview">
+                                    <img id="imagePreview" style="height: 400px; width: 250px; object-fit: contain;"
+                                        src="/img/cover/cover_placeholder.jpeg" alt="cover preview">
                                     <div class="input-group mt-3">
-                                        <input type="file" class="form-control" name="cover" id="cover">
+                                        <input type="file" accept="image/*" class="form-control" name="cover"
+                                            id="cover">
                                         <label class="input-group-text" for="cover">Upload</label>
                                     </div>
                                 </div>
@@ -106,4 +118,17 @@
             </div> <!--end::Container-->
         </div> <!--end::App Content-->
     </main>
+
+    <script>
+        document.getElementById('cover').addEventListener('change', function() {
+            var reader = new FileReader()
+
+            reader.onload = function(e) {
+                var imagePreview = document.getElementById('imagePreview')
+                imagePreview.src = e.target.result
+            }
+
+            reader.readAsDataURL(this.files[0])
+        })
+    </script>
 @endsection

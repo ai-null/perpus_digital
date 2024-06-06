@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Providers\UserProfileProvider;
+use Exception;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -13,7 +14,7 @@ class AdminController extends Controller
     function showAddBookPage(UserProfileProvider $UserProfileProvider)
     {
         if ($UserProfileProvider->isAdmin()) {
-            return view('book.add', [ 'success' => false ]);
+            return view('book.add', ['success' => false]);
         }
     }
 
@@ -24,26 +25,29 @@ class AdminController extends Controller
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'author' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
             'publisher' => ['required', 'string', 'max:255'],
-            'cover' => ['required', 'string', 'max:255'],
-            'publishing_year' => ['integer', 'max:4'],
-            'ISBN' => ['integer', 'max:30'],
-            'language' => ['string', 'max:30'],
+            'cover' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'publishing_year' => ['nullable', 'integer', 'not_in:0'],
+            'ISBN' => ['nullable', 'integer', 'max:30'],
+            'language' => ['nullable', 'string', 'max:30'],
         ]);
+
+        $imageName = time() . '.' . $request->cover->extension();
+        $request->cover->move(public_path('img/cover/book_cover'), $imageName);
 
         Book::create([
             'title' => $request->title,
             'author' => $request->author,
             'description' => $request->description,
             'publisher' => $request->publisher,
-            'cover' => $request->cover,
+            'cover' => $imageName,
             'publishing_year' => $request->publishing_year,
             'ISBN' => $request->ISBN,
             'language' => $request->language
         ]);
 
-        return redirect(route('addBook', [ 'success' => true ]));
+        return view('addBook', ['success' => true]);
     }
 
     function showPeminjamanPage(UserProfileProvider $UserProfileProvider)

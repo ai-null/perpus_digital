@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('author');
             $table->integer('stock')->default(0);
             $table->string('cover');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('ISBN')->nullable();
             $table->string('publisher')->nullable();
             $table->string('language')->nullable()->default('Indonesia');
