@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,7 +9,14 @@ require __DIR__ . '/general.php';
 
 // authenticated user
 Route::middleware('auth')->group(function() {
+
+    // general
     Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
+
+    // admin
+    // forced to use indonesian for path, since it's the most 'sound' ones
+    Route::get('/peminjaman', [AdminController::class, 'showPeminjamanPage'])->name('peminjaman');
+    Route::get('/addBook', [AdminController::class, 'showAddBookPage'])->name('addBook');
 });
 
 
