@@ -53,17 +53,17 @@
                                     <div class="row">
                                         <div class="col mb-3">
                                             <label for="judul_buku" class="form-label">Judul Buku</label>
-                                            <input name="title" type="text" class="form-control" id="judul_buku">
+                                            <input name="title" type="text" class="form-control" id="judul_buku" required>
                                         </div>
                                         <div class="col mb-3">
                                             <label for="author" class="form-label">Penulis</label>
-                                            <input name="author" type="text" class="form-control" id="author">
+                                            <input name="author" type="text" class="form-control" id="author" required>
                                         </div>
                                     </div>
 
                                     <div class="col mb-4">
                                         <label for="description" class="form-label">Deskripsi</label>
-                                        <textarea name="description" type="text" class="form-control" id="description" aria-label="With textarea"> </textarea>
+                                        <textarea name="description" type="text" class="form-control" id="description" aria-label="With textarea" required> </textarea>
                                     </div>
 
                                     <h5>Informasi Tambahan</h5>
@@ -71,13 +71,13 @@
                                     <div class="row">
                                         <div class="col mb-3">
                                             <label for="publisher" class="form-label">Penerbit</label>
-                                            <input type="text" name="publisher" class="form-control" id="publisher">
+                                            <input type="text" name="publisher" class="form-control" id="publisher" required>
                                         </div>
 
                                         <div class="col mb-3">
                                             <label for="publishing_year" class="form-label">Tahun Terbit</label>
                                             <input type="number" name="publishing_year" class="form-control"
-                                                id="publishing_year">
+                                                id="publishing_year" required>
                                         </div>
 
                                         <div class="col mb-3">
@@ -106,7 +106,7 @@
                                         src="/img/cover/cover_placeholder.jpeg" alt="cover preview">
                                     <div class="input-group mt-3">
                                         <input type="file" accept="image/*" class="form-control" name="cover"
-                                            id="cover">
+                                            id="cover" required>
                                         <label class="input-group-text" for="cover">Upload</label>
                                     </div>
                                 </div>

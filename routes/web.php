@@ -19,6 +19,12 @@ Route::middleware('auth')->group(function() {
     
     Route::get('/addBook', [AdminController::class, 'showAddBookPage'])->name('addBook');
     Route::post('/addBook', [AdminController::class, 'addBook']);
+
+    Route::get('/listBook', [AdminController::class, 'showListBookPage'])->name('listBook');
+    Route::post('/listBook/delete', [AdminController::class, 'deleteBook'])->name('book.delete');
+    Route::get('/listBook/delete', function () {
+        return redirect()->route('listBook');
+    })->name('book.delete');
 });
 
 

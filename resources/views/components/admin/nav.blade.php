@@ -169,9 +169,9 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"> <a href="{{ route('dashboard') }}" class="nav-link active"> <i
+                        <li class="nav-item"> <a href="{{ route('listBook') }}" class="nav-link active"> <i
                                     class="nav-icon bi bi-dot"></i>
-                                <p>Data buku</p>
+                                <p>Daftar buku</p>
                             </a> </li>
                         <li class="nav-item"> <a href=" {{ route('addBook') }} " class="nav-link active"> <i
                                     class="nav-icon bi bi-dot"></i>
