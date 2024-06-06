@@ -127,7 +127,7 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <!--begin::Sidebar Brand-->
     <div class="sidebar-brand">
-        <!--begin::Brand Link--> <a href="./index.html" class="brand-link">
+        <!--begin::Brand Link--> <a href=" {{ route('dashboard') }} " class="brand-link">
             <!--begin::Brand Image--> <img src="/img/icon/ic_logo_smam7.png" alt="SMA Muhamamdiyah 7 Logo"
                 class="brand-image opacity-75 shadow">
             <!--end::Brand Image-->
