@@ -22,23 +22,87 @@
         </div> <!--end::App Content Header--> <!--begin::App Content-->
         <div class="app-content"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Row-->
-                <form>
-                    @csrf
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                <div class="card">
+                    <div class="card-body">
+
+                        @if ($success)
+                            <div class="alert alert-${type} alert-dismissible" role="alert">
+                                <div>Sukses menambahkan buku.</div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('addBook') }}">
+                            @csrf
+
+                            <h4>Data buku</h4>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="judul_buku" class="form-label">Judul Buku</label>
+                                            <input name="title" type="text" class="form-control" id="judul_buku">
+                                        </div>
+                                        <div class="col mb-3">
+                                            <label for="author" class="form-label">Penulis</label>
+                                            <input name="author" type="text" class="form-control" id="author">
+                                        </div>
+                                    </div>
+
+                                    <div class="col mb-4">
+                                        <label for="description" class="form-label">Deskripsi</label>
+                                        <textarea name="description" type="text" class="form-control" id="description" aria-label="With textarea"> </textarea>
+                                    </div>
+
+                                    <h5>Informasi Tambahan</h5>
+
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="publisher" class="form-label">Penerbit</label>
+                                            <input type="text" name="publisher" class="form-control" id="publisher">
+                                        </div>
+
+                                        <div class="col mb-3">
+                                            <label for="publishing_year" class="form-label">Tahun Terbit</label>
+                                            <input type="number" name="publishing_year" class="form-control"
+                                                id="publishing_year">
+                                        </div>
+
+                                        <div class="col mb-3">
+                                            <label for="stock" class="form-label">Stok</label>
+                                            <input type="number" name="stock" class="form-control" id="stock">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="ISBN" class="form-label">ISBN</label>
+                                            <input type="text" name="ISBN" class="form-control" id="ISBN">
+                                        </div>
+
+                                        <div class="col mb-3">
+                                            <label for="language" class="form-label">Bahasa</label>
+                                            <input type="text" name="language" class="form-control" id="language">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-auto">
+                                    <img style="height: 400px;" src="/img/cover/cover.webp" alt="cover preview">
+                                    <div class="input-group mt-3">
+                                        <input type="file" class="form-control" name="cover" id="cover">
+                                        <label class="input-group-text" for="cover">Upload</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Tambahkan Buku</button>
+                        </form>
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                </div>
             </div> <!--end::Container-->
         </div> <!--end::App Content-->
     </main>

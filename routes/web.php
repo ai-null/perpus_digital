@@ -16,7 +16,9 @@ Route::middleware('auth')->group(function() {
     // admin
     // forced to use indonesian for path, since it's the most 'sound' ones
     Route::get('/peminjaman', [AdminController::class, 'showPeminjamanPage'])->name('peminjaman');
+    
     Route::get('/addBook', [AdminController::class, 'showAddBookPage'])->name('addBook');
+    Route::post('/addBook', [AdminController::class, 'addBook']);
 });
 
 
