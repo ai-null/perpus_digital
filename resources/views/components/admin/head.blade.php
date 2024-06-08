@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>SMAM 7 Perpus Digital Dashboard</title><!--begin::Primary Meta Tags-->
+    <title> {{ config('app.name') }} Admin </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="SMAM 7 Perpus Digital Dashboard">
     <!--end::Primary Meta Tags--><!--begin::Fonts-->
