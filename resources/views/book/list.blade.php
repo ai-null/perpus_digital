@@ -56,7 +56,7 @@
                                 @foreach($paginator->items() as $book)
                                     <tr>
                                         <td> {{ $book->ISBN ?? '-' }}  </td>
-                                        <td> <img src="/storage/covers/{{ $book->cover }}" width="80px" alt="cover"> </td>
+                                        <td> <img src="{{ $book->cover }}" width="80px" alt="cover"> </td>
                                         <td> {{ $book->title }}  </td>
                                         <td> {{ $book->author }}  </td>
                                         <td> {{ $book->publisher }}  </td>

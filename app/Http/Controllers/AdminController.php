@@ -62,8 +62,18 @@ class AdminController extends Controller
     function showListBookPage(UserProfileProvider $UserProfileProvider)
     {
         if ($UserProfileProvider->isAdmin()) {
+            $paginator = DB::table('book')->paginate(15);
+
+            // Get the S3 URL from the environment
+            $s3Url = env('AWS_STORAGE_PATH');
+
+            // Transform the cover URLs
+            foreach ($paginator->items() as $book) {
+                $book->cover = $s3Url . '/public/covers/' . $book->cover;
+            }
+
             return view('book.list', [
-                'paginator' => DB::table('book')->paginate(15)
+                'paginator' => $paginator
             ]);
         }
     }
@@ -72,7 +82,7 @@ class AdminController extends Controller
     {
         if ($userProfileProvider->isAdmin()) {
             $book = Book::findOrFail($request->id);
-            Storage::delete('public/covers/'. $book->cover);
+            Storage::delete('public/covers/' . $book->cover);
             $book->delete();
 
             return redirect()->route('listBook')->with(['success' => 'Data Berhasil Dihapus!']);
