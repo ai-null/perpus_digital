@@ -30,7 +30,7 @@ class AdminController extends Controller
             'publisher' => ['required', 'string', 'max:255'],
             'cover' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'publishing_year' => ['required', 'integer', 'not_in:0'],
-            'ISBN' => ['nullable', 'string', 'max:13'],
+            'isbn' => ['nullable', 'string', 'max:13'],
             'language' => ['nullable', 'string', 'max:30'],
         ]);
 
@@ -45,7 +45,7 @@ class AdminController extends Controller
             'publisher' => $request->publisher,
             'cover' => $imageName,
             'publishing_year' => $request->publishing_year,
-            'ISBN' => $request->ISBN,
+            'isbn' => $request->isbn,
             'language' => $request->language
         ]);
 

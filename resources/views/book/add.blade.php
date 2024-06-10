@@ -89,8 +89,8 @@
 
                                     <div class="row">
                                         <div class="col mb-3">
-                                            <label for="ISBN" class="form-label">ISBN</label>
-                                            <input type="text" name="ISBN" class="form-control" id="ISBN">
+                                            <label for="isbn" class="form-label">isbn</label>
+                                            <input type="text" name="isbn" class="form-control" id="isbn">
                                         </div>
 
                                         <div class="col mb-3">

@@ -41,7 +41,7 @@
                         <table id="myTable" class="display">
                             <thead>
                                 <tr>
-                                    <th>ISBN</th>
+                                    <th>isbn</th>
                                     <th>Cover</th>
                                     <th>Judul</th>
                                     <th>Penulis</th>
@@ -55,7 +55,7 @@
 
                                 @foreach($paginator->items() as $book)
                                     <tr>
-                                        <td> {{ $book->ISBN ?? '-' }}  </td>
+                                        <td> {{ $book->isbn }}  </td>
                                         <td> <img src="{{ $book->cover }}" width="80px" alt="cover"> </td>
                                         <td> {{ $book->title }}  </td>
                                         <td> {{ $book->author }}  </td>
