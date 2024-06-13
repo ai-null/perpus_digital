@@ -16,7 +16,16 @@ class Book extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'title',
+        'author',
+        'description',
+        'publisher',
+        'cover',
+        'publishing_year',
+        'isbn',
+        'language',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
