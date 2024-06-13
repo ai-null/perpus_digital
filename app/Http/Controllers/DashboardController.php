@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Providers\UserProfileProvider;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -13,7 +12,7 @@ class DashboardController extends Controller
         if ($UserProfileProvider->isAdmin()) {
             return view('admin.dashboard');
         } else {
-            $paginator = DB::table('book')->paginate(15);
+            $paginator = Book::paginate(8)->onEachSide(-1);
 
             // Get the S3 URL from the environment
             $s3Url = env('AWS_STORAGE_PATH');
@@ -24,7 +23,7 @@ class DashboardController extends Controller
             }
 
             return view('user.dashboard', [
-                'paginator' => $paginator
+                'paginator' => $paginator,
             ]);
         }
     }

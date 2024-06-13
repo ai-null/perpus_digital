@@ -15,7 +15,7 @@ class BookSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker\Factory::create();
-        $faker->seed(35);
+        $faker->seed(rand());
         $faker->addProvider(new BookFake($faker));
         $faker->addProvider(new Faker\Provider\id_ID\Person($faker));
 
