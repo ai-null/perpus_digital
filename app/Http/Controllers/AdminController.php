@@ -30,7 +30,7 @@ class AdminController extends Controller
             'publisher' => ['required', 'string', 'max:255'],
             'cover' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'publishing_year' => ['required', 'integer', 'not_in:0'],
-            'ISBN' => ['nullable', 'string', 'max:13'],
+            'isbn' => ['nullable', 'string', 'max:13'],
             'language' => ['nullable', 'string', 'max:30'],
         ]);
 
@@ -45,7 +45,7 @@ class AdminController extends Controller
             'publisher' => $request->publisher,
             'cover' => $imageName,
             'publishing_year' => $request->publishing_year,
-            'ISBN' => $request->ISBN,
+            'isbn' => $request->isbn,
             'language' => $request->language
         ]);
 
@@ -62,13 +62,13 @@ class AdminController extends Controller
     function showListBookPage(UserProfileProvider $UserProfileProvider)
     {
         if ($UserProfileProvider->isAdmin()) {
-            $paginator = DB::table('book')->paginate(15);
+            $paginator = Book::all();
 
             // Get the S3 URL from the environment
             $s3Url = env('AWS_STORAGE_PATH');
 
             // Transform the cover URLs
-            foreach ($paginator->items() as $book) {
+            foreach ($paginator as $book) {
                 $book->cover = $s3Url . '/public/covers/' . $book->cover;
             }
 

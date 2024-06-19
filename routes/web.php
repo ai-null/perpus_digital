@@ -32,7 +32,5 @@ Route::middleware('auth')->group(function() {
 //     return 'User '.$id;
 // });
 Route::prefix('book')->group(function() {
-    Route::get('/detail', function () {
-        return view('book/detail');
-    })->name('borrow_book');
+    Route::get('/detail/{id}', [DashboardController::class, 'showDetail'])->name('borrow_book');
 });

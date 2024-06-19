@@ -49,36 +49,27 @@
         {{-- CONTENT --}}
         <div>
             <div class="row justify-content-center">
-
-                @php
-                    $numberOfCards = rand(3, 10); // Generate a random number between 3 and 10
-                @endphp
-
-                @for ($i = 0; $i < $numberOfCards; $i++)
+                @foreach ($paginator->items() as $book)
                     <div class="col-sm-3 mx-3 mt-5 card"
                         style="width: 18rem; padding: 0px; border-radius: 16px; overflow: hidden; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15); border: none;">
-                        <img src="/img/cover/cover.webp" height="440px" width="100%" style="object-fit: cover;"
+                        <img src="{{ $book->cover }}" height="440px" width="100%" style="object-fit: cover;"
                             class="card-img-top" alt="...">
-                        <div class="card-body position-absolute" style="bottom: 0; width: 100%; background-color: white !important; border-radius: 16px;">
-                            <h5 class="card-title amaranth-regular" style="font-size: 20px; color: black;">Atomic Habits
+                        <div class="card-body position-absolute"
+                            style="bottom: 0; width: 100%; background-color: white !important; border-radius: 16px;">
+                            <h5 class="card-title amaranth-regular" style="font-size: 20px; color: black;">
+                                {{ $book->title }}
                             </h5>
-                            <p class="card-text urbanist-regular" style="font-size: 14px; color: #7F7F7F;">Nama Penulis.</p>
-                            <a href="{{ route('borrow_book') }}" class="urbanis-semibold btn btn-primary"
+                            <p class="card-text urbanist-regular" style="font-size: 14px; color: #7F7F7F;">{{ $book->author }}.</p>
+                            <a href="{{ route('borrow_book', ['id' => base64_encode(strval($book->id))]) }}" class="urbanis-semibold btn btn-primary"
                                 style="background-color: #6499E9; border: none; border-radius: 4px; color: white; font-size: 16px;">Pinjam</a>
                         </div>
                     </div>
-                @endfor
+                @endforeach
             </div>
 
-            <nav aria-label="Page navigation example" class="mt-4" style="float: right;">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-              </nav>
+            <nav aria-label="Page navigation example" class="mt-5">
+                {{$paginator->withQueryString()->links('pagination::bootstrap-5')}}
+            </nav>
         </div>
     </div>
 @endsection

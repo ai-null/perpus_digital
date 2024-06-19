@@ -11,7 +11,7 @@
         <div class="row justify-content-start" style="margin-top: 28px;">
             <div class="col-auto me-3">
                 <div class="d-flex flex-column mb-3">
-                    <img src="/img/cover/cover.webp" style="object-fit: cover; width: 18rem;">
+                    <img src="{{ $book->cover }}" style="object-fit: cover; width: 18rem;">
 
                     <a href="#"
                         style="background-color: #6499E9; border-radius: 8px; margin-top: 24px; font-size: 16px;"
@@ -26,14 +26,9 @@
                 <div class="d-flex flex-column mb-3 align-items-start">
                     <span class="badge text-bg-success">Tersedia</span>
 
-                    <span class="amaranth-regular" style="margin: 16px 0 32px 0; font-size: 52px; color: black;">Judul Buku</span>
+                    <span class="amaranth-regular" style="margin: 16px 0 32px 0; font-size: 52px; color: black;"> {{ $book->title }} </span>
 
-                    <span class="urbanist-regular" style="font-size: 18px;">Deskripsi Buku yang ada dibelakang buku atau deskripsi singkat tentang buku ini menceritakan
-                        tentang apa. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </span>
+                    <span class="urbanist-regular" style="font-size: 18px;"> {{ $book->description }} </span>
 
                     {{-- DIVIDER --}}
                     <div style="width: 100%; border: 1px solid #D8D8D8; margin: 32px 0 20px 0;"></div>
@@ -63,23 +58,23 @@
                         <tbody class="urbanist-semibold" style="font-size: 16px;">
                             <tr>
                                 <td>Nama Penulis</td>
-                                <td>Nama Penulis</td>
+                                <td> {{ $book->author }} </td>
                             </tr>
                             <tr>
                                 <td>Penerbit</td>
-                                <td>Penerbit</td>
+                                <td> {{ $book->publisher }} </td>
                             </tr>
                             <tr>
                                 <td>Tahun Terbit</td>
-                                <td>Tahun Terbit</td>
+                                <td> {{ $book->publishing_year }} </td>
                             </tr>
                             <tr>
                                 <td>Bahasa</td>
-                                <td>Bahasa</td>
+                                <td> {{ $book->language }} </td>
                             </tr>
                             <tr>
                                 <td>Stok Buku</td>
-                                <td>Stok Buku</td>
+                                <td> {{ $book->stock }} </td>
                             </tr>
                             <tr>
                                 <td>Kategori</td>
