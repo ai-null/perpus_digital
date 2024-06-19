@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\BookCategory;
 use App\Providers\UserProfileProvider;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,13 +32,14 @@ class AdminController extends Controller
             'publishing_year' => ['required', 'integer', 'not_in:0'],
             'isbn' => ['nullable', 'string', 'max:13'],
             'language' => ['nullable', 'string', 'max:30'],
+            'categories' => ['']
         ]);
 
         $imageName = time() . '.' . $request->cover->extension();
         $image = $request->file('cover');
         $image->storeAs('public/covers', $imageName);
 
-        Book::create([
+        $book = Book::create([
             'title' => $request->title,
             'author' => $request->author,
             'description' => $request->description,
@@ -48,6 +49,14 @@ class AdminController extends Controller
             'isbn' => $request->isbn,
             'language' => $request->language
         ]);
+
+        // add categories for book
+        foreach ($request->categories as $idCategory) {
+            BookCategory::create([
+                'id_book' => $book->id,
+                'id_category' => $idCategory
+            ]);
+        }
 
         return view('book.add', ['success' => true]);
     }
