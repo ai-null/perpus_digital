@@ -13,6 +13,9 @@ Route::middleware('auth')->group(function() {
     // general
     Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
 
+    Route::get('/category', [AdminController::class, 'showCategoryPage'])->name('category');
+    Route::post('/category', [AdminController::class, 'addCategory'])->name('category');
+
     // admin
     // forced to use indonesian for path, since it's the most 'sound' ones
     Route::get('/peminjaman', [AdminController::class, 'showPeminjamanPage'])->name('peminjaman');

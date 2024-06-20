@@ -16,12 +16,12 @@ class AdminController extends Controller
     {
         if ($UserProfileProvider->isAdmin()) {
             return view('book.add', ['success' => false]);
-        }
+        } return redirect()->back();
     }
 
     function addBook(Request $request, UserProfileProvider $UserProfileProvider)
     {
-        if (!$UserProfileProvider->isAdmin()) return;
+        if (!$UserProfileProvider->isAdmin()) return redirect()->back();
 
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
@@ -65,7 +65,7 @@ class AdminController extends Controller
     {
         if ($UserProfileProvider->isAdmin()) {
             return view('admin.peminjaman');
-        }
+        } else return redirect()->back();
     }
 
     function showListBookPage(UserProfileProvider $UserProfileProvider)
@@ -84,7 +84,7 @@ class AdminController extends Controller
             return view('book.list', [
                 'paginator' => $paginator
             ]);
-        }
+        } else return redirect()->back();
     }
 
     function deleteBook(Request $request, UserProfileProvider $userProfileProvider)
@@ -95,6 +95,14 @@ class AdminController extends Controller
             $book->delete();
 
             return redirect()->route('listBook')->with(['success' => 'Data Berhasil Dihapus!']);
-        }
+        } else return redirect()->back();
+    }
+
+    function showCategoryPage(UserProfileProvider $UserProfileProvider)
+    {
+        if ($UserProfileProvider->isAdmin()) {
+
+            return view('book.category.list', ['success' => false]);
+        } return redirect()->back();
     }
 }

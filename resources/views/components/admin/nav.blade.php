@@ -144,10 +144,7 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu"
                 data-accordion="false">
                 <li
-                    class="nav-item {{ (
-                        Request::routeIs('dashboard') || 
-                        Request::routeIs('peminjaman')
-                    ) ? 'menu-open' : '' }}">
+                    class="nav-item {{ Request::routeIs('dashboard') || Request::routeIs('peminjaman') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-speedometer"></i>
                         <p>Menu <i class="nav-arrow bi bi-chevron-right"></i></p>
@@ -166,11 +163,9 @@
                     </ul>
                 </li>
 
-                <li class="nav-item {{ (
-                    Request::routeIs('listBook') || 
-                    Request::routeIs('addBook')
-                ) ? 'menu-open' : '' }}"> <a href="#" class="nav-link"> <i
-                            class="nav-icon bi bi-journal-bookmark-fill"></i>
+                <li
+                    class="nav-item {{ Request::routeIs('listBook') || Request::routeIs('addBook') || Request::routeIs('category') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link"> <i class="nav-icon bi bi-journal-bookmark-fill"></i>
                         <p>
                             Menu Buku
                             <i class="nav-arrow bi bi-chevron-right"></i>
@@ -186,6 +181,11 @@
                                 class="nav-link {{ Request::routeIs('addBook') ? 'active' : '' }}"> <i
                                     class="nav-icon bi bi-dot"></i>
                                 <p>Tambah buku</p>
+                            </a> </li>
+                        <li class="nav-item"> <a href=" {{ route('category') }} "
+                                class="nav-link {{ Request::routeIs('category') ? 'active' : '' }}"> <i
+                                    class="nav-icon bi bi-dot"></i>
+                                <p>Kategori</p>
                             </a> </li>
                     </ul>
                 </li>
