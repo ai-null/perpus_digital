@@ -16,7 +16,7 @@
                         <ol class="breadcrumb float-sm-end">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Daftar Buku
+                                Daftar Kategori
                             </li>
                         </ol>
                     </div>
@@ -25,57 +25,85 @@
         </div> <!--end::App Content Header--> <!--begin::App Content-->
         <div class="app-content"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Row-->
-                <div class="card">
-                    <div class="card-body">
 
-                        @if ($errors->any())
-                            <div class="alert alert-danger mt-4">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <table id="myTable" class="display">
-                            <thead>
-                                <tr>
-                                    <th>isbn</th>
-                                    <th>Cover</th>
-                                    <th>Judul</th>
-                                    <th>Penulis</th>
-                                    <th>Penerbit</th>
-                                    <th>Tahun Terbit</th>
-                                    <th>Tanggal ditambahkan</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach($paginator as $book)
-                                    <tr>
-                                        <td> {{ $book->isbn }}  </td>
-                                        <td> <img src="{{ $book->cover }}" width="80px" alt="cover"> </td>
-                                        <td> {{ $book->title }}  </td>
-                                        <td> {{ $book->author }}  </td>
-                                        <td> {{ $book->publisher }}  </td>
-                                        <td> {{ $book->publishing_year }}  </td>
-                                        <td> {{ date("d-M-Y", strtotime($book->created_at)); }}</td>
-                                        <td>
-                                            <div class="col">
-                                                <a href="{{route('addBook')}}" class="btn btn-warning">edit</a>
-                                                <form action="{{ route('book.delete') }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{$book->id}}">
-                                                    <button class="btn btn-danger mt-2">hapus</button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <div>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
                                 @endforeach
-                            </tbody>
-                        </table>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <div>{{session('success')}}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                <div class="row">
+                    {{-- SHOW CATEGORIES --}}
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <table id="myTable" class="stripe row-border order-column" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>nama kategori</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach ($paginator as $key=>$category)
+                                            <tr>
+                                                <td> {{ $key+1 }} </td>
+                                                <td> {{ $category->category }} </td>
+                                                <td>
+                                                    <div class="row text-center">
+                                                        <div class="col align-self-center"><a style="width: 100%;"
+                                                                href="{{ route('addBook') }}"
+                                                                class="btn btn-warning">edit</a></div>
+                                                        <form action="{{ route('category.delete') }}" method="POST"
+                                                            class="col align-self-center">
+                                                            @csrf
+                                                            <input type="hidden" name="id"
+                                                                value="{{ $category->id }}">
+                                                            <button style="width: 100%;"
+                                                                class="btn btn-danger">hapus</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- ADD CATEGORIES --}}
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="{{ route('category') }}" method="POST">
+                                    @csrf
+                                    <h4>Tambah Kategori</h4>
+
+                                    <label for="kategori" class="form-label">Nama Kategori</label>
+                                    <input name="category" type="text" class="form-control" id="kategori" required>
+
+                                    <button type="submit" class="btn btn-primary mt-3 align-end">Tambahkan</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div> <!--end::Container-->
@@ -85,6 +113,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script>
-        new DataTable('#myTable');
+        new DataTable('#myTable', {
+            columnDefs: [{
+                targets: 0
+            }],
+            fixedColumns: true,
+            paging: false,
+            scrollY: 300
+        });
     </script>
 @endsection
