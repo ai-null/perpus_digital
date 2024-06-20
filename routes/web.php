@@ -17,6 +17,13 @@ Route::middleware('auth')->group(function() {
     // forced to use indonesian for path, since it's the most 'sound' ones
     Route::get('/peminjaman', [AdminController::class, 'showPeminjamanPage'])->name('peminjaman');
     
+    Route::get('/category', [AdminController::class, 'showCategoryPage'])->name('category');
+    Route::post('/category', [AdminController::class, 'addCategory'])->name('category');
+    Route::post('/category/delete', [AdminController::class, 'deleteCategory'])->name('category.delete');
+    Route::get('/category/delete', function () {
+        return redirect()->route('category');
+    })->name('category.delete');
+
     Route::get('/addBook', [AdminController::class, 'showAddBookPage'])->name('addBook');
     Route::post('/addBook', [AdminController::class, 'addBook']);
 

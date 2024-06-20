@@ -13,3 +13,7 @@
     <img src="https://raw.githubusercontent.com/ai-null/perpus_digital/master/public/img/demo/dashboard.png" width="30%" />
     <img src="https://raw.githubusercontent.com/ai-null/perpus_digital/master/public/img/demo/book_detail.png" width="30%" />
 </p>
+
+todo:
+- [ ] make book category
+- [ ] make peminjaman

@@ -141,41 +141,51 @@
     <div class="sidebar-wrapper">
         <nav class="mt-2">
             <!--begin::Sidebar Menu-->
-            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                <li class="nav-item menu-open"> <a href="#" class="nav-link active"> <i
-                            class="nav-icon bi bi-speedometer"></i>
-                        <p>
-                            Menu
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu"
+                data-accordion="false">
+                <li
+                    class="nav-item {{ Request::routeIs('dashboard') || Request::routeIs('peminjaman') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon bi bi-speedometer"></i>
+                        <p>Menu <i class="nav-arrow bi bi-chevron-right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"> <a href="{{ route('dashboard') }}" class="nav-link active">
+                        <li class="nav-item"> <a href="{{ route('dashboard') }}"
+                                class="nav-link {{ Request::routeIs('dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-dot"></i>
                                 <p>Dashboard</p>
                             </a> </li>
-                        <li class="nav-item"> <a href=" {{ route('peminjaman') }} " class="nav-link active">
+                        <li class="nav-item"> <a href=" {{ route('peminjaman') }} "
+                                class="nav-link {{ Request::routeIs('peminjaman') ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-dot"></i>
                                 <p>Peminjaman</p>
                             </a> </li>
                     </ul>
                 </li>
 
-                <li class="nav-item"> <a href="#" class="nav-link active"> <i
-                            class="nav-icon bi bi-journal-bookmark-fill"></i>
+                <li
+                    class="nav-item {{ Request::routeIs('listBook') || Request::routeIs('addBook') || Request::routeIs('category') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link"> <i class="nav-icon bi bi-journal-bookmark-fill"></i>
                         <p>
                             Menu Buku
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"> <a href="{{ route('listBook') }}" class="nav-link active"> <i
+                        <li class="nav-item"> <a href="{{ route('listBook') }}"
+                                class="nav-link {{ Request::routeIs('listBook') ? 'active' : '' }}"> <i
                                     class="nav-icon bi bi-dot"></i>
                                 <p>Daftar buku</p>
                             </a> </li>
-                        <li class="nav-item"> <a href=" {{ route('addBook') }} " class="nav-link active"> <i
+                        <li class="nav-item"> <a href=" {{ route('addBook') }} "
+                                class="nav-link {{ Request::routeIs('addBook') ? 'active' : '' }}"> <i
                                     class="nav-icon bi bi-dot"></i>
                                 <p>Tambah buku</p>
+                            </a> </li>
+                        <li class="nav-item"> <a href=" {{ route('category') }} "
+                                class="nav-link {{ Request::routeIs('category') ? 'active' : '' }}"> <i
+                                    class="nav-icon bi bi-dot"></i>
+                                <p>Kategori</p>
                             </a> </li>
                     </ul>
                 </li>
@@ -183,7 +193,8 @@
 
                 {{-- WIDGET WITH BADGE --}}
                 <li class="nav-header">EXAMPLES</li>
-                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-box-arrow-in-right"></i>
+                <li class="nav-item"> <a href="#" class="nav-link"> <i
+                            class="nav-icon bi bi-box-arrow-in-right"></i>
                         <p>
                             Auth
                             <i class="nav-arrow bi bi-chevron-right"></i>

@@ -17,12 +17,13 @@
 
 
                     @if ($errors->any())
-                        <div class="alert alert-danger mt-4">
+                        <div class="alert alert-danger mt-4 alert-dismissible" role="alert">
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
                     <form action="{{ route('register') }}" method="post" style="margin-top: 52px;">

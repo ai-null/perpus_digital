@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\BookCategory;
+use App\Models\Category;
 use App\Providers\UserProfileProvider;
-use Illuminate\Support\Facades\DB;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class AdminController extends Controller
 {
@@ -17,11 +20,12 @@ class AdminController extends Controller
         if ($UserProfileProvider->isAdmin()) {
             return view('book.add', ['success' => false]);
         }
+        return redirect()->back();
     }
 
     function addBook(Request $request, UserProfileProvider $UserProfileProvider)
     {
-        if (!$UserProfileProvider->isAdmin()) return;
+        if (!$UserProfileProvider->isAdmin()) return redirect()->back();
 
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
@@ -32,13 +36,14 @@ class AdminController extends Controller
             'publishing_year' => ['required', 'integer', 'not_in:0'],
             'isbn' => ['nullable', 'string', 'max:13'],
             'language' => ['nullable', 'string', 'max:30'],
+            'categories' => ['']
         ]);
 
         $imageName = time() . '.' . $request->cover->extension();
         $image = $request->file('cover');
         $image->storeAs('public/covers', $imageName);
 
-        Book::create([
+        $book = Book::create([
             'title' => $request->title,
             'author' => $request->author,
             'description' => $request->description,
@@ -49,6 +54,14 @@ class AdminController extends Controller
             'language' => $request->language
         ]);
 
+        // add categories for book
+        foreach ($request->categories as $idCategory) {
+            BookCategory::create([
+                'id_book' => $book->id,
+                'id_category' => $idCategory
+            ]);
+        }
+
         return view('book.add', ['success' => true]);
     }
 
@@ -56,7 +69,7 @@ class AdminController extends Controller
     {
         if ($UserProfileProvider->isAdmin()) {
             return view('admin.peminjaman');
-        }
+        } else return redirect()->back();
     }
 
     function showListBookPage(UserProfileProvider $UserProfileProvider)
@@ -75,7 +88,7 @@ class AdminController extends Controller
             return view('book.list', [
                 'paginator' => $paginator
             ]);
-        }
+        } else return redirect()->back();
     }
 
     function deleteBook(Request $request, UserProfileProvider $userProfileProvider)
@@ -86,6 +99,54 @@ class AdminController extends Controller
             $book->delete();
 
             return redirect()->route('listBook')->with(['success' => 'Data Berhasil Dihapus!']);
+        } else return redirect()->back();
+    }
+
+    function showCategoryPage(UserProfileProvider $UserProfileProvider)
+    {
+        if ($UserProfileProvider->isAdmin()) {
+            return view('book.category.list', [
+                'paginator' => Category::all()
+            ]);
         }
+        return redirect()->back();
+    }
+
+    function addCategory(Request $request, UserProfileProvider $UserProfileProvider)
+    {
+        if (!$UserProfileProvider->isAdmin()) return redirect()->back();
+
+        try {
+            $request->validate([
+                'category' => ['required', 'string', 'max:50', 'unique:' . Category::class],
+            ], [
+                'category.required'             => 'Kategori perlu diisi.',
+                'category.unique'               => 'Kategori tidak boleh sama.',
+            ]);
+
+            Category::create([
+                'category' => $request->category
+            ]);
+
+            return redirect(route('category'))->with('success', 'Sukses menambahkan buku.');
+        } catch (ValidationException $e) {
+            return redirect(route('category'))->withErrors([
+                'errors'    => $e->getMessage(),
+            ]);
+        } catch (Exception $e) {
+            return redirect(route('category'))->withErrors([
+                'errors'    => 'Terjadi sebuah kesalahan.',
+            ]);
+        }
+    }
+
+    function deleteCategory(Request $request, UserProfileProvider $userProfileProvider)
+    {
+        if ($userProfileProvider->isAdmin()) {
+            $category = Category::findOrFail($request->id);
+            $category->delete();
+
+            return redirect()->route('category')->with(['success' => 'Data Berhasil Dihapus!']);
+        } else return redirect()->back();
     }
 }
