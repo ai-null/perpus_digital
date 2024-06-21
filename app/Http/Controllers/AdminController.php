@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use PhpParser\JsonDecoder;
 
 class AdminController extends Controller
 {
@@ -18,7 +19,7 @@ class AdminController extends Controller
     function showAddBookPage(UserProfileProvider $UserProfileProvider)
     {
         if ($UserProfileProvider->isAdmin()) {
-            return view('book.add', ['success' => false]);
+            return view('book.add', ['success' => false, 'categories' => Category::all()]);
         }
         return redirect()->back();
     }
@@ -62,7 +63,7 @@ class AdminController extends Controller
             ]);
         }
 
-        return view('book.add', ['success' => true]);
+        return view('book.add', ['success' => true, 'categories' => Category::all()->pluck('category')]);
     }
 
     function showPeminjamanPage(UserProfileProvider $UserProfileProvider)
@@ -148,5 +149,11 @@ class AdminController extends Controller
 
             return redirect()->route('category')->with(['success' => 'Data Berhasil Dihapus!']);
         } else return redirect()->back();
+    }
+
+    function showCategoryApi()
+    {
+        $categories = Category::all()->pluck('category');;
+        return $categories->toJson();
     }
 }

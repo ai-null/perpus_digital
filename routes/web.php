@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . '/auth.php';
 require __DIR__ . '/general.php';
 
+// Route::prefix('api')->group(function() {
+//     Route::get('/category', [AdminController::class, 'showCategoryApi'])->name('category.api');
+// });
+
 // authenticated user
 Route::middleware('auth')->group(function() {
 

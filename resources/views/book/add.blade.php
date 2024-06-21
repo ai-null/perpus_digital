@@ -1,5 +1,31 @@
 @extends('components.admin.head')
 
+@section('head')
+    <style>
+        .form-control-focus {
+            color: #212529;
+            background-color: #fff;
+            border-color: #86b7fe;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        .was-validated :valid+.form-control-focus {
+            border-color: #198754;
+            box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+        }
+
+        .was-validated :invalid+.form-control-focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        }
+    </style>
+    <script type="module">
+        import Tags from "https://cdn.jsdelivr.net/gh/lekoala/bootstrap5-tags@master/tags.js";
+        Tags.init("select");
+    </script>
+@endsection
+
 @section('content')
     {{-- CONTENT --}}
     <main class="app-main"> <!--begin::App Content Header-->
@@ -32,7 +58,8 @@
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
                             </div>
                         @endif
 
@@ -54,11 +81,13 @@
                                     <div class="row">
                                         <div class="col mb-3">
                                             <label for="judul_buku" class="form-label">Judul Buku</label>
-                                            <input name="title" type="text" class="form-control" id="judul_buku" required>
+                                            <input name="title" type="text" class="form-control" id="judul_buku"
+                                                required>
                                         </div>
                                         <div class="col mb-3">
                                             <label for="author" class="form-label">Penulis</label>
-                                            <input name="author" type="text" class="form-control" id="author" required>
+                                            <input name="author" type="text" class="form-control" id="author"
+                                                required>
                                         </div>
                                     </div>
 
@@ -72,7 +101,8 @@
                                     <div class="row">
                                         <div class="col mb-3">
                                             <label for="publisher" class="form-label">Penerbit</label>
-                                            <input type="text" name="publisher" class="form-control" id="publisher" required>
+                                            <input type="text" name="publisher" class="form-control" id="publisher"
+                                                required>
                                         </div>
 
                                         <div class="col mb-3">
@@ -98,7 +128,25 @@
                                             <label for="language" class="form-label">Bahasa</label>
                                             <input type="text" name="language" class="form-control" id="language">
                                         </div>
+                                    </div>
 
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="validationTagsClear" class="form-label">Genre</label>
+                                            <select class="form-select" id="validationTagsClear" name="tagsClear[]" multiple
+                                                data-allow-clear="true">
+                                                <option selected disabled hidden value="">Pilih genre</option>
+                                                {{-- <option value="1">Apple</option>
+                                                <option value="2">Banana</option>
+                                                <option value="3">Orange</option> --}}
+
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                                @endforeach
+
+                                            </select>
+                                            <div class="invalid-feedback">Please select a valid tag.</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -112,7 +160,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Tambahkan Buku</button>
+                            <button type="submit" class="mt-2 btn btn-primary">Tambahkan Buku</button>
                         </form>
                     </div>
                 </div>
