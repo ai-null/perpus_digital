@@ -10,6 +10,7 @@ class BookCategory extends Model
     use HasFactory;
 
     protected $table = 'book_category';
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -17,8 +18,8 @@ class BookCategory extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_book',
-        'id_category',
+        'book_id',
+        'category_id',
     ];
 
     /**

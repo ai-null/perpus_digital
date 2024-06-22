@@ -11,7 +11,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
-use PhpParser\JsonDecoder;
 
 class AdminController extends Controller
 {
@@ -106,8 +105,9 @@ class AdminController extends Controller
     function showCategoryPage(UserProfileProvider $UserProfileProvider)
     {
         if ($UserProfileProvider->isAdmin()) {
+            $data = Category::all();
             return view('book.category.list', [
-                'paginator' => Category::all()
+                'paginator' => $data
             ]);
         }
         return redirect()->back();
@@ -148,7 +148,12 @@ class AdminController extends Controller
             $category->delete();
 
             return redirect()->route('category')->with(['success' => 'Data Berhasil Dihapus!']);
-        } else return redirect()->back();
+        } else {
+            $data = Category::all();
+            return view('book.category.list', [
+                'paginator' => $data
+            ]);
+        };
     }
 
     function showCategoryApi()

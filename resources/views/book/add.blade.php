@@ -133,14 +133,14 @@
                                     <div class="row">
                                         <div class="col mb-3">
                                             <label for="validationTagsClear" class="form-label">Genre</label>
-                                            <select class="form-select" id="validationTagsClear" name="tagsClear[]" multiple
+                                            <select class="form-select" id="validationTagsClear" name="categories[]" multiple
                                                 data-allow-clear="true">
                                                 <option selected disabled hidden value="">Pilih genre</option>
                                                 {{-- <option value="1">Apple</option>
                                                 <option value="2">Banana</option>
                                                 <option value="3">Orange</option> --}}
 
-                                                @foreach($categories as $category)
+                                                @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->category }}</option>
                                                 @endforeach
 
