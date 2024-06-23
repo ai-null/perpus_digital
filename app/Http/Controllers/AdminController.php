@@ -15,6 +15,8 @@ use Illuminate\Validation\ValidationException;
 class AdminController extends Controller
 {
 
+    // === BOOK ===
+
     function showAddBookPage(UserProfileProvider $UserProfileProvider)
     {
         if ($UserProfileProvider->isAdmin()) {
@@ -34,7 +36,7 @@ class AdminController extends Controller
             'publisher' => ['required', 'string', 'max:255'],
             'cover' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'publishing_year' => ['required', 'integer', 'not_in:0'],
-            'isbn' => ['nullable', 'string', 'max:13'],
+            'isbn' => ['required', 'string', 'max:13'],
             'language' => ['nullable', 'string', 'max:30'],
             'categories' => ['']
         ]);
@@ -55,21 +57,9 @@ class AdminController extends Controller
         ]);
 
         // add categories for book
-        foreach ($request->categories as $idCategory) {
-            BookCategory::create([
-                'id_book' => $book->id,
-                'id_category' => $idCategory
-            ]);
-        }
+        $book->categories()->sync($request->categories);
 
-        return view('book.add', ['success' => true, 'categories' => Category::all()->pluck('category')]);
-    }
-
-    function showPeminjamanPage(UserProfileProvider $UserProfileProvider)
-    {
-        if ($UserProfileProvider->isAdmin()) {
-            return view('admin.peminjaman');
-        } else return redirect()->back();
+        return view('book.add', ['success' => true, 'categories' => Category::all()]);
     }
 
     function showListBookPage(UserProfileProvider $UserProfileProvider)
@@ -101,6 +91,69 @@ class AdminController extends Controller
             return redirect()->route('listBook')->with(['success' => 'Data Berhasil Dihapus!']);
         } else return redirect()->back();
     }
+
+    function showEditBookPage(string $id, UserProfileProvider $userProfileProvider)
+    {
+        if (!$userProfileProvider->isAdmin()) return redirect()->back();
+
+        $decodedId = base64_decode(strval($id));
+        $book = Book::where('id', $decodedId)->first();
+
+        // dd(BookCategory::where('book_id', $book->id)->pluck('category_id'));
+
+        return view('book/edit', [
+            'book' => $book,
+            'categories' => Category::all(),
+            'selectedCategories' => BookCategory::where('book_id', $book->id)->pluck('category_id')->toArray()
+        ]);
+    }
+
+    function editBook(string $id, Request $request, UserProfileProvider $userProfileProvider)
+    {
+        if (!$userProfileProvider->isAdmin()) return redirect()->back();
+
+        // get book by id
+        $book = Book::whereId($id)->first();
+
+        // check whether need to update image
+        $imageName = $book->cover;
+        if ($book->cover != $request->cover) {
+            $imageName = time() . '.' . $request->cover->extension();
+            $image = $request->file('cover');
+            $image->storeAs('public/covers', $imageName);
+
+            // delete cover after cover updated
+            Storage::delete('public/covers/' . $book->cover);
+        }
+
+        // do update
+        $book->update([
+            'title' => $request->title,
+            'author' => $request->author,
+            'description' => $request->description,
+            'publisher' => $request->publisher,
+            'cover' => $imageName,
+            'publishing_year' => $request->publishing_year,
+            'isbn' => $request->isbn,
+            'language' => $request->language
+        ]);
+        $book->categories()->sync($request->categories);
+
+        return redirect()->route('editBook', ['id' => base64_encode(strval($id))])->with(['success' => true]);
+    }
+
+    // === PEMINJAMAN ===
+
+    function showPeminjamanPage(UserProfileProvider $UserProfileProvider)
+    {
+        if ($UserProfileProvider->isAdmin()) {
+            return view('admin.peminjaman');
+        } else return redirect()->back();
+    }
+
+
+
+    // === CATEGORY ===
 
     function showCategoryPage(UserProfileProvider $UserProfileProvider)
     {

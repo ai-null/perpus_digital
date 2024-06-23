@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/addBook', [AdminController::class, 'showAddBookPage'])->name('addBook');
     Route::post('/addBook', [AdminController::class, 'addBook']);
 
+    Route::get('/editBook/{id}', [AdminController::class, 'showEditBookPage'])->name('editBook');
+    Route::post('/editBook/{id}', [AdminController::class, 'editBook']);
+
     Route::get('/listBook', [AdminController::class, 'showListBookPage'])->name('listBook');
     Route::post('/listBook/delete', [AdminController::class, 'deleteBook'])->name('book.delete');
     Route::get('/listBook/delete', function () {
