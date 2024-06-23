@@ -35,7 +35,8 @@
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
                             </div>
                         @endif
 
@@ -54,21 +55,22 @@
                             </thead>
                             <tbody>
 
-                                @foreach($paginator as $book)
+                                @foreach ($paginator as $book)
                                     <tr>
-                                        <td> {{ $book->isbn }}  </td>
+                                        <td> {{ $book->isbn }} </td>
                                         <td> <img src="{{ $book->cover }}" width="80px" alt="cover"> </td>
-                                        <td> {{ $book->title }}  </td>
-                                        <td> {{ $book->author }}  </td>
-                                        <td> {{ $book->publisher }}  </td>
-                                        <td> {{ $book->publishing_year }}  </td>
-                                        <td> {{ date("d-M-Y", strtotime($book->created_at)); }}</td>
+                                        <td> {{ $book->title }} </td>
+                                        <td> {{ $book->author }} </td>
+                                        <td> {{ $book->publisher }} </td>
+                                        <td> {{ $book->publishing_year }} </td>
+                                        <td> {{ date('d-M-Y', strtotime($book->created_at)) }}</td>
                                         <td>
                                             <div class="col">
-                                                <a href="{{route('addBook')}}" class="btn btn-warning">edit</a>
+                                                <a href="{{ route('editBook', ['id' => base64_encode(strval($book->id))]) }}"
+                                                    class="btn btn-warning">edit</a>
                                                 <form action="{{ route('book.delete') }}" method="POST">
                                                     @csrf
-                                                    <input type="hidden" name="id" value="{{$book->id}}">
+                                                    <input type="hidden" name="id" value="{{ $book->id }}">
                                                     <button class="btn btn-danger mt-2">hapus</button>
                                                 </form>
                                             </div>
@@ -86,6 +88,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script>
-        new DataTable('#myTable');
+        new DataTable('#myTable', {
+            order: {
+                idx: 6,
+                dir: 'desc'
+            }
+        });
     </script>
 @endsection

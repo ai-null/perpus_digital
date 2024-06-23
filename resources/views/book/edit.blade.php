@@ -63,15 +63,15 @@
                             </div>
                         @endif
 
-                        @if ($success)
+                        @if (session('success'))
                             <div class="alert alert-success alert-dismissible" role="alert">
-                                <div>Sukses menambahkan buku.</div>
+                                <div>Sukses mengubah data buku.</div>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('addBook') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('editBook', ['id' => $book->id]) }}" enctype="multipart/form-data">
                             @csrf
 
                             <h4>Data buku</h4>
@@ -82,18 +82,18 @@
                                         <div class="col mb-3">
                                             <label for="judul_buku" class="form-label">Judul Buku</label>
                                             <input name="title" type="text" class="form-control" id="judul_buku"
-                                                required>
+                                                required value="{{ $book->title }}">
                                         </div>
                                         <div class="col mb-3">
                                             <label for="author" class="form-label">Penulis</label>
                                             <input name="author" type="text" class="form-control" id="author"
-                                                required>
+                                                required value="{{ $book->author }}">
                                         </div>
                                     </div>
 
                                     <div class="col mb-4">
                                         <label for="description" class="form-label">Deskripsi</label>
-                                        <textarea name="description" type="text" class="form-control" id="description" aria-label="With textarea" required> </textarea>
+                                        <textarea name="description" type="text" class="form-control" id="description" aria-label="With textarea" required>{{ htmlspecialchars($book->description) }}</textarea>
                                     </div>
 
                                     <h5>Informasi Tambahan</h5>
@@ -102,18 +102,19 @@
                                         <div class="col mb-3">
                                             <label for="publisher" class="form-label">Penerbit</label>
                                             <input type="text" name="publisher" class="form-control" id="publisher"
-                                                required>
+                                                required value="{{ $book->publisher }}">
                                         </div>
 
                                         <div class="col mb-3">
                                             <label for="publishing_year" class="form-label">Tahun Terbit</label>
                                             <input type="number" name="publishing_year" class="form-control"
-                                                id="publishing_year" required>
+                                                id="publishing_year" required value="{{ $book->publishing_year }}">
                                         </div>
 
                                         <div class="col mb-3">
                                             <label for="stock" class="form-label">Stok</label>
-                                            <input type="number" name="stock" class="form-control" id="stock">
+                                            <input type="number" name="stock" class="form-control" id="stock"
+                                                value="{{ $book->stock }}">
                                         </div>
 
                                     </div>
@@ -121,12 +122,14 @@
                                     <div class="row">
                                         <div class="col mb-3">
                                             <label for="isbn" class="form-label">isbn</label>
-                                            <input type="text" name="isbn" class="form-control" id="isbn">
+                                            <input type="text" name="isbn" class="form-control" id="isbn"
+                                                value="{{ $book->isbn }}">
                                         </div>
 
                                         <div class="col mb-3">
                                             <label for="language" class="form-label">Bahasa</label>
-                                            <input type="text" name="language" class="form-control" id="language">
+                                            <input type="text" name="language" class="form-control" id="language"
+                                                value="{{ $book->language }}">
                                         </div>
                                     </div>
 
@@ -134,15 +137,18 @@
                                     <div class="row">
                                         <div class="col mb-3">
                                             <label for="validationTagsClear" class="form-label">Genre</label>
-                                            <select class="form-select" id="validationTagsClear" name="categories[]" multiple
-                                                data-allow-clear="true">
+                                            <select class="form-select" id="validationTagsClear" name="categories[]"
+                                                multiple data-allow-clear="true">
                                                 <option selected disabled hidden value="">Pilih genre</option>
                                                 {{-- <option value="1">Apple</option>
                                                 <option value="2">Banana</option>
                                                 <option value="3">Orange</option> --}}
-
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                                    @if ( in_array($category->id, $selectedCategories))
+                                                        <option value="{{ $category->id }}" selected="selected">{{ $category->category }}</option>
+                                                    @else
+                                                        <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                                    @endif
                                                 @endforeach
 
                                             </select>
@@ -153,15 +159,15 @@
 
                                 <div class="col-auto">
                                     <img id="imagePreview" style="height: 400px; width: 250px; object-fit: contain;"
-                                        src="/img/cover/cover_placeholder.jpeg" alt="cover preview">
+                                        src="{{ env('AWS_STORAGE_PATH') . '/public/covers/' . $book->cover }}" alt="cover preview">
                                     <div class="input-group mt-3">
                                         <input type="file" accept="image/*" class="form-control" name="cover"
-                                            id="cover" required>
+                                            id="cover" value="{{ $book->cover }}">
                                         <label class="input-group-text" for="cover">Upload</label>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="mt-2 btn btn-primary">Tambahkan Buku</button>
+                            <button type="submit" class="mt-2 btn btn-primary">Ubah data Buku</button>
                         </form>
                     </div>
                 </div>

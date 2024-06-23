@@ -18,8 +18,6 @@
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <a href="#" class="dropdown-item">
                         <!--begin::Message-->
                         <div class="d-flex">
-                            <div class="flex-shrink-0"> <img src="../../dist/assets/img/user1-128x128.jpg"
-                                    alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
                             <div class="flex-grow-1">
                                 <h3 class="dropdown-item-title">
                                     Brad Diesel
@@ -36,8 +34,6 @@
                     <div class="dropdown-divider"></div> <a href="#" class="dropdown-item">
                         <!--begin::Message-->
                         <div class="d-flex">
-                            <div class="flex-shrink-0"> <img src="../../dist/assets/img/user8-128x128.jpg"
-                                    alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
                             <div class="flex-grow-1">
                                 <h3 class="dropdown-item-title">
                                     John Pierce
@@ -55,8 +51,6 @@
                     <div class="dropdown-divider"></div> <a href="#" class="dropdown-item">
                         <!--begin::Message-->
                         <div class="d-flex">
-                            <div class="flex-shrink-0"> <img src="../../dist/assets/img/user3-128x128.jpg"
-                                    alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
                             <div class="flex-grow-1">
                                 <h3 class="dropdown-item-title">
                                     Nora Silvester
@@ -164,7 +158,7 @@
                 </li>
 
                 <li
-                    class="nav-item {{ Request::routeIs('listBook') || Request::routeIs('addBook') || Request::routeIs('category') ? 'menu-open' : '' }}">
+                    class="nav-item {{ Request::routeIs('listBook') || Request::routeIs('addBook') || Request::routeIs('editBook') || Request::routeIs('category') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link"> <i class="nav-icon bi bi-journal-bookmark-fill"></i>
                         <p>
                             Menu Buku
@@ -173,7 +167,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"> <a href="{{ route('listBook') }}"
-                                class="nav-link {{ Request::routeIs('listBook') ? 'active' : '' }}"> <i
+                                class="nav-link {{ (Request::routeIs('listBook') || Request::routeIs('editBook')) ? 'active' : '' }}"> <i
                                     class="nav-icon bi bi-dot"></i>
                                 <p>Daftar buku</p>
                             </a> </li>
@@ -186,60 +180,6 @@
                                 class="nav-link {{ Request::routeIs('category') ? 'active' : '' }}"> <i
                                     class="nav-icon bi bi-dot"></i>
                                 <p>Kategori</p>
-                            </a> </li>
-                    </ul>
-                </li>
-
-
-                {{-- WIDGET WITH BADGE --}}
-                <li class="nav-header">EXAMPLES</li>
-                <li class="nav-item"> <a href="#" class="nav-link"> <i
-                            class="nav-icon bi bi-box-arrow-in-right"></i>
-                        <p>
-                            Auth
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item"> <a href="#" class="nav-link"> <i
-                                    class="nav-icon bi bi-box-arrow-in-right"></i>
-                                <p>
-                                    Version 1
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item"> <a href="./examples/login.html" class="nav-link"> <i
-                                            class="nav-icon bi bi-circle"></i>
-                                        <p>Login</p>
-                                    </a> </li>
-                                <li class="nav-item"> <a href="./examples/register.html" class="nav-link"> <i
-                                            class="nav-icon bi bi-circle"></i>
-                                        <p>Register</p>
-                                    </a> </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"> <a href="#" class="nav-link"> <i
-                                    class="nav-icon bi bi-box-arrow-in-right"></i>
-                                <p>
-                                    Version 2
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item"> <a href="./examples/login-v2.html" class="nav-link"> <i
-                                            class="nav-icon bi bi-circle"></i>
-                                        <p>Login</p>
-                                    </a> </li>
-                                <li class="nav-item"> <a href="./examples/register-v2.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Register</p>
-                                    </a> </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"> <a href="./examples/lockscreen.html" class="nav-link"> <i
-                                    class="nav-icon bi bi-circle"></i>
-                                <p>Lockscreen</p>
                             </a> </li>
                     </ul>
                 </li>

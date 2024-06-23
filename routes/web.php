@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . '/auth.php';
 require __DIR__ . '/general.php';
 
+// Route::prefix('api')->group(function() {
+//     Route::get('/category', [AdminController::class, 'showCategoryApi'])->name('category.api');
+// });
+
 // authenticated user
 Route::middleware('auth')->group(function() {
 
@@ -26,6 +30,9 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/addBook', [AdminController::class, 'showAddBookPage'])->name('addBook');
     Route::post('/addBook', [AdminController::class, 'addBook']);
+
+    Route::get('/editBook/{id}', [AdminController::class, 'showEditBookPage'])->name('editBook');
+    Route::post('/editBook/{id}', [AdminController::class, 'editBook']);
 
     Route::get('/listBook', [AdminController::class, 'showListBookPage'])->name('listBook');
     Route::post('/listBook/delete', [AdminController::class, 'deleteBook'])->name('book.delete');

@@ -13,8 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-       for ($i=0; $i < 35; $i++) { 
-        $this->call(BookSeeder::class);
-       }
+        $this->call(CategorySeeder::class);
+
+        for ($i = 0; $i < 35; $i++) {
+            $this->call(BookSeeder::class);
+        }
     }
 }
