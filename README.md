@@ -15,5 +15,5 @@
 </p>
 
 todo:
-- [ ] make book category
+- [x] make book category
 - [ ] make peminjaman
