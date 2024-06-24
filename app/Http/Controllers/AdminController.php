@@ -99,12 +99,10 @@ class AdminController extends Controller
         $decodedId = base64_decode(strval($id));
         $book = Book::where('id', $decodedId)->first();
 
-        // dd(BookCategory::where('book_id', $book->id)->pluck('category_id'));
-
         return view('book/edit', [
             'book' => $book,
             'categories' => Category::all(),
-            'selectedCategories' => BookCategory::where('book_id', $book->id)->pluck('category_id')->toArray()
+            'selectedCategories' => $book->categories()->get()->pluck('id')->toArray()
         ]);
     }
 

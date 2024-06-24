@@ -31,10 +31,12 @@ class DashboardController extends Controller
     function showDetail(string $id) {
         $decodedId = base64_decode(strval($id));
         $book = Book::where('id', $decodedId)->first();
-        $book->cover = env('AWS_STORAGE_PATH') . '/public/covers/' . $book->cover;
+        $categories = $book->categories()->get();
 
+        $book->cover = env('AWS_STORAGE_PATH') . '/public/covers/' . $book->cover;
         return view('book/detail', [
-            'book' => $book
+            'book' => $book,
+            'categories' => $categories,
         ]);
     }
 }

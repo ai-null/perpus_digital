@@ -22,11 +22,23 @@
                         class="btn btn-primary" style="urbanist-semibold">Tambah ke Daftar Baca</a>
                 </div>
             </div>
-            <div class="col-md-6 ms-5">
+            <div class="col ms-5">
                 <div class="d-flex flex-column mb-3 align-items-start">
-                    <span class="badge text-bg-success">Tersedia</span>
+                    @if ($book->stock > 0)
+                        <span class="badge text-bg-success">Tersedia</span>
+                    @else
+                        <span class="badge text-bg-danger">Tidak tersedia</span>
+                    @endif
 
-                    <span class="amaranth-regular" style="margin: 16px 0 32px 0; font-size: 52px; color: black;"> {{ $book->title }} </span>
+                    <span class="amaranth-regular" style="margin: 16px 0 0 0; font-size: 52px; color: black; line-height: 1.2;"> {{ $book->title }} </span>
+
+                    <div class="row mb-2 mt-3">
+                        @foreach ($categories as $key => $value)
+                            <div class="col-auto" style="padding: 0px 0px 0px 10px;">
+                                <span class="badge text-bg-primary"> {{ $value->category }} </span>
+                            </div>
+                        @endforeach
+                    </div>
 
                     <span class="urbanist-regular" style="font-size: 18px;"> {{ $book->description }} </span>
 
