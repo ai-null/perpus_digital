@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Peminjaman;
+use App\Models\User;
 use App\Providers\UserProfileProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Exception;
 
 class DashboardController extends Controller
 {
@@ -31,7 +33,8 @@ class DashboardController extends Controller
         }
     }
 
-    function showDetail(string $id) {
+    function showDetail(string $id)
+    {
         $decodedId = base64_decode(strval($id));
         $book = Book::where('id', $decodedId)->first();
         $categories = $book->categories()->get();
@@ -43,15 +46,31 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function borrow(string $bookId, Request $request) {
-        $peminjaman = Peminjaman::create([
-            'book_id' => $bookId,
-            'user_id' => Auth::user()->id,
+    public function borrow(string $bookId, Request $request)
+    {
+        $decodedId = base64_decode(strval($bookId));
+        $book = Book::find($decodedId);
+
+        if (0 >= $book->stock) {
+            return redirect(route('book.detail', ['id' => $bookId]));
+        }
+
+        $user = User::find(Auth::user()->id);
+
+        $user->books()->save($book, [
+            'status' => config('constants.peminjaman.status.requested')
         ]);
 
-        return view('book/detail', [
-            'book' => $book,
-            'categories' => $categories,
-        ]);
+        return redirect()->route('user.peminjaman.list', [
+            'books' => $user->books()->get()
+        ])->with(['succes' => true]);
+    }
+
+    public function showPeminjamanPage() {
+        $user = User::find(Auth::user()->id);
+        
+        return view('user.peminjaman.list', [
+            'books' => $user->books()->get()
+        ])->with(['succes' => true]);
     }
 }

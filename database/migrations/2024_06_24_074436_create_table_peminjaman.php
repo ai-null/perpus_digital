@@ -12,13 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('peminjaman', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id('id')->primary();
             $table->foreignId('book_id')->constrained('book')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('user')->onUpdate('cascade')->onDelete('cascade');
             // status : requested, borrowed, declined, returned, vanished, confirmed,
             $table->string('status', 30)->default('requested');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

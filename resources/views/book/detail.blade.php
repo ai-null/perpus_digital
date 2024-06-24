@@ -13,13 +13,20 @@
                 <div class="d-flex flex-column mb-3">
                     <img src="{{ $book->cover }}" style="object-fit: cover; width: 18rem;">
 
-                    <a href="#"
-                        style="background-color: #6499E9; border-radius: 8px; margin-top: 24px; font-size: 16px;"
-                        class="btn btn-primary" style="urbanist-semibold">Pinjam Buku</a>
+                    <form action="{{ route('book.borrow', base64_encode($book->id)) }}" method="POST">
+                        @csrf
+                        <button type="submit"
+                            style="width: 100%; background-color: #6499E9; border-radius: 8px; margin-top: 24px; font-size: 16px;"
+                            class="btn btn-primary" style="urbanist-semibold">Pinjam Buku</button>
+                    </form>
 
-                    <a href="#"
-                        style="background-color: white; border: 1px solid #6499E9; border-radius: 8px; color: #6499E9; margin-top: 16px; font-size: 16px;"
-                        class="btn btn-primary" style="urbanist-semibold">Tambah ke Daftar Baca</a>
+                    <form action="{{ route('book.borrow', base64_encode($book->id)) }}" method="POST">
+                        @csrf
+                        <button
+                        type="submit"
+                        style="width: 100%; background-color: white; border: 1px solid #6499E9; border-radius: 8px; color: #6499E9; margin-top: 16px; font-size: 16px;"
+                        class="btn btn-primary" style="urbanist-semibold">Tambah ke Daftar Baca</button>
+                    </form>
                 </div>
             </div>
             <div class="col ms-5">
@@ -30,7 +37,9 @@
                         <span class="badge text-bg-danger">Tidak tersedia</span>
                     @endif
 
-                    <span class="amaranth-regular" style="margin: 16px 0 0 0; font-size: 52px; color: black; line-height: 1.2;"> {{ $book->title }} </span>
+                    <span class="amaranth-regular"
+                        style="margin: 16px 0 0 0; font-size: 52px; color: black; line-height: 1.2;"> {{ $book->title }}
+                    </span>
 
                     <div class="row mb-2 mt-3">
                         @foreach ($categories as $key => $value)
@@ -48,19 +57,19 @@
 
                     <style>
                         table {
-                          border-collapse: collapse;
+                            border-collapse: collapse;
                         }
-                        
+
                         table tbody {
-                          border-top: 15px solid transparent;
+                            border-top: 15px solid transparent;
                         }
 
                         table tr {
-                          border-top: 16px solid transparent;
+                            border-top: 16px solid transparent;
                         }
-                        </style>
-                        
-                    
+                    </style>
+
+
                     <table>
                         <thead>
                             <tr>

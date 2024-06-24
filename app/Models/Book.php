@@ -40,13 +40,4 @@ class Book extends Model
     {
         return $this->belongsToMany(Category::class, 'book_category', 'book_id', 'category_id');
     }
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class)
-            ->using(Peminjaman::class)
-            ->withPivot('id')
-            ->withTimestamps()
-            ->withTrashed();
-    }
 }

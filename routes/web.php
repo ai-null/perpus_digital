@@ -46,5 +46,11 @@ Route::middleware([EnsureIsAdmin::class])->group(function () {
 // Member
 Route::prefix('book')->middleware([EnsureIsMember::class])->group(function () {
     Route::get('/detail/{id}', [DashboardController::class, 'showDetail'])->name('book.detail');
+    
+    Route::get('borrow/{id}', function ($id) {
+        return redirect()->back();
+    })->name('book.borrow');
     Route::post('/borrow/{id}', [DashboardController::class, 'borrow'])->name('book.borrow');
+
+    Route::get('/aktivitas', [DashboardController::class, 'showPeminjamanPage'])->name('user.peminjaman.list');
 });
