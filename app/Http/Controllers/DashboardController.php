@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Peminjaman;
 use App\Providers\UserProfileProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -34,6 +37,18 @@ class DashboardController extends Controller
         $categories = $book->categories()->get();
 
         $book->cover = env('AWS_STORAGE_PATH') . '/public/covers/' . $book->cover;
+        return view('book/detail', [
+            'book' => $book,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function borrow(string $bookId, Request $request) {
+        $peminjaman = Peminjaman::create([
+            'book_id' => $bookId,
+            'user_id' => Auth::user()->id,
+        ]);
+
         return view('book/detail', [
             'book' => $book,
             'categories' => $categories,
