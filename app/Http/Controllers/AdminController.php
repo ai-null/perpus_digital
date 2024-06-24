@@ -88,7 +88,7 @@ class AdminController extends Controller
             Storage::delete('public/covers/' . $book->cover);
             $book->delete();
 
-            return redirect()->route('listBook')->with(['success' => 'Data Berhasil Dihapus!']);
+            return redirect()->route('book.list')->with(['success' => 'Data Berhasil Dihapus!']);
         } else return redirect()->back();
     }
 
@@ -137,7 +137,7 @@ class AdminController extends Controller
         ]);
         $book->categories()->sync($request->categories);
 
-        return redirect()->route('editBook', ['id' => base64_encode(strval($id))])->with(['success' => true]);
+        return redirect()->route('book.edit', ['id' => base64_encode(strval($id))])->with(['success' => true]);
     }
 
     // === PEMINJAMAN ===

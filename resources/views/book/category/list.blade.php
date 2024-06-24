@@ -69,7 +69,7 @@
                                                 <td>
                                                     <div class="row text-center">
                                                         <div class="col align-self-center"><a style="width: 100%;"
-                                                                href="{{ route('addBook') }}"
+                                                                href="{{ route('book.add') }}"
                                                                 class="btn btn-warning">edit</a></div>
                                                         <form action="{{ route('category.delete') }}" method="POST"
                                                             class="col align-self-center">

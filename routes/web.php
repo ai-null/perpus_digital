@@ -29,20 +29,22 @@ Route::middleware([EnsureIsAdmin::class])->group(function () {
         return redirect()->route('category');
     })->name('category.delete');
 
-    Route::get('/addBook', [AdminController::class, 'showAddBookPage'])->name('addBook');
+    Route::get('/addBook', [AdminController::class, 'showAddBookPage'])->name('book.add');
     Route::post('/addBook', [AdminController::class, 'addBook']);
 
-    Route::get('/editBook/{id}', [AdminController::class, 'showEditBookPage'])->name('editBook');
+    Route::get('/editBook/{id}', [AdminController::class, 'showEditBookPage'])->name('book.edit');
     Route::post('/editBook/{id}', [AdminController::class, 'editBook']);
 
-    Route::get('/listBook', [AdminController::class, 'showListBookPage'])->name('listBook');
+    Route::get('/listBook', [AdminController::class, 'showListBookPage'])->name('book.list');
+
     Route::post('/listBook/delete', [AdminController::class, 'deleteBook'])->name('book.delete');
     Route::get('/listBook/delete', function () {
-        return redirect()->route('listBook');
+        return redirect()->route('book.list');
     })->name('book.delete');
 });
 
 // Member
 Route::prefix('book')->middleware([EnsureIsMember::class])->group(function () {
-    Route::get('/detail/{id}', [DashboardController::class, 'showDetail'])->name('borrow_book');
+    Route::get('/detail/{id}', [DashboardController::class, 'showDetail'])->name('book.detail');
+    Route::post('/borrow/{id}', [DashboardController::class, 'borrow'])->name('book.borrow');
 });

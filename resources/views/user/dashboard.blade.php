@@ -60,7 +60,7 @@
                                 {{ $book->title }}
                             </h5>
                             <p class="card-text urbanist-regular" style="font-size: 14px; color: #7F7F7F;">{{ $book->author }}.</p>
-                            <a href="{{ route('borrow_book', ['id' => base64_encode(strval($book->id))]) }}" class="urbanis-semibold btn btn-primary"
+                            <a href="{{ route('book.detail', ['id' => base64_encode(strval($book->id))]) }}" class="urbanis-semibold btn btn-primary"
                                 style="background-color: #6499E9; border: none; border-radius: 4px; color: white; font-size: 16px;">Pinjam</a>
                         </div>
                     </div>
