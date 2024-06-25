@@ -3,19 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Peminjaman;
 use App\Models\User;
 use App\Providers\UserProfileProvider;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Exception;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     function showDashboard(UserProfileProvider $UserProfileProvider)
     {
         if ($UserProfileProvider->isAdmin()) {
-            return view('admin.dashboard');
+            $data = DB::table('peminjaman')
+                ->whereIn('status', [
+                    config('constants.peminjaman.status.1'),
+                    config('constants.peminjaman.status.2'),
+                    config('constants.peminjaman.status.5'),
+                    config('constants.peminjaman.status.6'),
+                ])->get();
+
+            $dataPeminjaman = DB::table('peminjaman')
+                ->select(
+                    'peminjaman.id',
+                    'peminjaman.created_at',
+                    'peminjaman.status',
+                    'peminjaman.updated_at',
+                    'user.id as userId',
+                    'user.name',
+                    'book.cover',
+                    'book.title',
+                    'book.isbn',
+                    'book.author'
+                )
+                ->leftJoin('user', 'user.id', '=', 'peminjaman.user_id')
+                ->leftJoin('book', 'book.id', '=', 'peminjaman.book_id')
+                ->get();
+
+            return view('admin.dashboard', [
+                'general' => [
+                    'request' => $this->countByStatus($data, config('constants.peminjaman.status.1')),
+                    'borrowed' => $this->countByStatus($data, config('constants.peminjaman.status.2')),
+                    'vanished' => $this->countByStatus($data, config('constants.peminjaman.status.5')),
+                    'accepted' => $this->countByStatus($data, config('constants.peminjaman.status.6')),
+                ],
+                'peminjaman' => $dataPeminjaman
+            ]);
         } else {
             $paginator = Book::paginate(8)->onEachSide(-1);
 
@@ -31,6 +64,13 @@ class DashboardController extends Controller
                 'paginator' => $paginator,
             ]);
         }
+    }
+
+    private function countByStatus(Collection $data, string $status): int
+    {
+        return $data->filter(function ($item) use ($status) {
+            return $item->status == $status;
+        })->count();
     }
 
     function showDetail(string $id)
@@ -58,7 +98,7 @@ class DashboardController extends Controller
         $user = User::find(Auth::user()->id);
 
         $user->books()->save($book, [
-            'status' => config('constants.peminjaman.status.requested')
+            'status' => config('constants.peminjaman.status.1')
         ]);
 
         return redirect()->route('user.peminjaman.list', [
@@ -66,9 +106,10 @@ class DashboardController extends Controller
         ])->with(['succes' => true]);
     }
 
-    public function showPeminjamanPage() {
+    public function showPeminjamanPage()
+    {
         $user = User::find(Auth::user()->id);
-        
+
         return view('user.peminjaman.list', [
             'books' => $user->books()->get()
         ])->with(['succes' => true]);

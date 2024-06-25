@@ -10,12 +10,12 @@ return [
 
     'peminjaman' => [
         'status' => [
-            'requested' => 'requested',
-            'borrowed' => 'borrowed',
-            'declined' => 'declined',
-            'returned' => 'returned',
-            'vanished' => 'vanished',
-            'confirmed' => 'confirmed',
+            '1' => 'requested',
+            '2' => 'borrowed',
+            '3' => 'declined',
+            '4' => 'returned',
+            '5' => 'vanished',
+            '6' => 'accepted',
         ]
     ],
 ];

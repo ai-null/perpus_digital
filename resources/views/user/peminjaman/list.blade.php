@@ -6,13 +6,6 @@
 
     @include('components.nav')
 
-    <div
-        style="background-image: url('img/cover/cover_curved_blue_dashboard.webp');
-    background-position: top; background-repeat: no-repeat;
-    z-index: -99;
-    background-size: contain; width: 100%; height: 100%;position: absolute;">
-    </div>
-
     <div class="container mt-5" style=" padding-bottom: 48px;">
         {{-- CONTENT --}}
         <div class="amaranth-regular" style="font-size: 32px; color: black;">
@@ -71,27 +64,27 @@
                             </td>
                             <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
                                 @switch($book->pivot->status)
-                                    @case(config('constants.peminjaman.status.requested'))
+                                    @case(config('constants.peminjaman.status.1'))
                                         <span class="badge text-bg-warning">Dalam Proses</span>
                                     @break
 
-                                    @case(config('constants.peminjaman.status.borrowed'))
-                                        <span class="badge text-bg-primary">Dipinjam/span>
+                                    @case(config('constants.peminjaman.status.2'))
+                                        <span class="badge text-bg-primary">Dipinjam</span>
                                         @break
 
-                                        @case(config('constants.peminjaman.status.declined'))
+                                        @case(config('constants.peminjaman.status.3'))
                                             <span class="badge text-bg-danger">Ditolak</span>
                                         @break
 
-                                        @case(config('constants.peminjaman.status.returned'))
+                                        @case(config('constants.peminjaman.status.4'))
                                             <span class="badge text-bg-warning">Pengembalian</span>
                                         @break
 
-                                        @case(config('constants.peminjaman.status.vanished'))
+                                        @case(config('constants.peminjaman.status.5'))
                                             <span class="badge text-bg-danger">Hilang</span>
                                         @break
 
-                                        @case(config('constants.peminjaman.status.confirmed'))
+                                        @case(config('constants.peminjaman.status.6'))
                                             <span class="badge text-bg-success">Dikembalikan</span>
                                         @break
 
@@ -110,7 +103,7 @@
     <script>
         new DataTable('#myTable', {
             order: {
-                idx: 1,
+                idx: 0,
                 dir: 'desc'
             }
         });

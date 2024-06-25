@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
-use App\Models\BookCategory;
 use App\Models\Category;
 use App\Providers\UserProfileProvider;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
@@ -145,8 +145,67 @@ class AdminController extends Controller
     function showPeminjamanPage(UserProfileProvider $UserProfileProvider)
     {
         if ($UserProfileProvider->isAdmin()) {
-            return view('admin.peminjaman');
+            $data = DB::table('peminjaman')
+                ->select(
+                    'peminjaman.id',
+                    'peminjaman.created_at',
+                    'peminjaman.status',
+                    'peminjaman.updated_at',
+                    'user.id as userId',
+                    'user.name',
+                    'book.cover',
+                    'book.title',
+                    'book.isbn',
+                    'book.author'
+                )
+                ->leftJoin('user', 'user.id', '=', 'peminjaman.user_id')
+                ->leftJoin('book', 'book.id', '=', 'peminjaman.book_id')
+                ->get();
+
+            return view('admin.peminjaman', [
+                'peminjaman' => $data,
+            ]);
         } else return redirect()->back();
+    }
+
+    function peminjamanUpdate(Request $request)
+    {
+        $status = base64_decode($request->status);
+        $peminjaman = DB::table('peminjaman')->where('id', '=', $request->id);
+
+        switch ($status) {
+            case config('constants.peminjaman.status.1'):
+                // do nothing
+                break;
+            case config('constants.peminjaman.status.2'):
+                $peminjaman->update([
+                    'status' => config('constants.peminjaman.status.2')
+                ]);
+                break;
+            case config('constants.peminjaman.status.3'):
+                $peminjaman->update([
+                    'status' => config('constants.peminjaman.status.3')
+                ]);
+                break;
+
+            case config('constants.peminjaman.status.4'):
+                # code...
+                break;
+
+            case config('constants.peminjaman.status.5'):
+                # code...
+                break;
+
+            case config('constants.peminjaman.status.6'):
+                # code...
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        return redirect(route('peminjaman.update'));
     }
 
 
