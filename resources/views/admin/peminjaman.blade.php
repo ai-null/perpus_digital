@@ -27,123 +27,131 @@
         <div class="app-content"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Row-->
 
-                <div class="container mt-5" style=" padding-bottom: 48px;">
-                    <div style="margin-top: 28px;">
-                        @if ($errors->any())
-                            <div class="alert alert-danger mt-4 alert-dismissible" role="alert">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="container mt-5" style=" padding-bottom: 48px;">
+                            <div style="margin-top: 28px;">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger mt-4 alert-dismissible" role="alert">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                @endif
+        
+                                <table id="myTable" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>No. Peminjaman</th>
+                                            <th>Info Buku</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Tanggal Peminjaman</th>
+                                            <th>Tanggal Pengembalian</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+        
+                                        @foreach ($peminjaman as $data)
+                                            <tr>
+                                                <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
+                                                    <b>#{{ $data->id }}</b>
+                                                </td>
+                                                <td>
+                                                    <div class="row row-cols-auto">
+                                                        <div class="col-4">
+                                                            <img src="{{ env('AWS_STORAGE_PATH') . '/public/covers/' . $data->cover }}"
+                                                                width="80px" alt="cover">
+                                                        </div>
+                                                        <div class="col-7 ms-2">
+                                                            <span class="row amaranth-regular"
+                                                                style="font-size: 16px; color: black;">{{ $data->title }}</span>
+                                                            <span class="row urbanist-medium"
+                                                                style="font-size: 12px; color: #7F7F7F;">{{ $data->author }}</span>
+                                                            <span class="row urbanist-medium"
+                                                                style="font-size: 12px; color: #7F7F7F;">ISBN :
+                                                                {{ $data->isbn }}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
+                                                    {{ $data->name }}
+                                                </td>
+                                                <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
+                                                    {{ $data->created_at }}
+                                                </td>
+                                                <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
+                                                    {{ $data->created_at }}
+                                                </td>
+                                                <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
+                                                    @switch($data->status)
+                                                        @case(config('constants.peminjaman.status.1'))
+                                                            <span class="badge text-bg-warning">Pengajuan</span>
+                                                        @break
+        
+                                                        @case(config('constants.peminjaman.status.2'))
+                                                            <span class="badge text-bg-primary">Dipinjam</span>
+                                                        @break
+        
+                                                        @case(config('constants.peminjaman.status.3'))
+                                                            <span class="badge text-bg-danger">Ditolak</span>
+                                                        @break
+        
+                                                        @case(config('constants.peminjaman.status.4'))
+                                                            <span class="badge text-bg-warning">Pengembalian</span>
+                                                        @break
+        
+                                                        @case(config('constants.peminjaman.status.5'))
+                                                            <span class="badge text-bg-danger">Hilang</span>
+                                                        @break
+        
+                                                        @case(config('constants.peminjaman.status.6'))
+                                                            <span class="badge text-bg-success">Dikembalikan</span>
+                                                        @break
+        
+                                                        @default
+                                                            <span class="badge text-bg-primary">Dalam Proses</span>
+                                                    @endswitch
+                                                </td>
+                                                <td>
+                                                    @if($data->status == config('constants.peminjaman.status.1'))
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <form action="{{ route('peminjaman.update') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="status"
+                                                                    value="{{ base64_encode(config('constants.peminjaman.status.2')) }}">
+                                                                <input type="hidden" name="id" value="{{ $data->id }}">
+                                                                <button style="font-size: 14px;"
+                                                                    class="btn btn-success">Terima</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col">
+                                                            <form action="{{ route('peminjaman.update') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="status"
+                                                                    value="{{ base64_encode(config('constants.peminjaman.status.3')) }}">
+                                                                <input type="hidden" name="id" value="{{ $data->id }}">
+                                                                <button style="font-size: 14px;"
+                                                                    class="btn btn-danger mt-2">Tolak</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                        @endif
-
-                        <table id="myTable" class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No. Peminjaman</th>
-                                    <th>Info Buku</th>
-                                    <th>Nama Siswa</th>
-                                    <th>Tanggal Peminjaman</th>
-                                    <th>Tanggal Pengembalian</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach ($peminjaman as $data)
-                                    <tr>
-                                        <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
-                                            <b>#{{ $data->id }}</b>
-                                        </td>
-                                        <td>
-                                            <div class="row row-cols-auto">
-                                                <div class="col-4">
-                                                    <img src="{{ env('AWS_STORAGE_PATH') . '/public/covers/' . $data->cover }}"
-                                                        width="80px" alt="cover">
-                                                </div>
-                                                <div class="col-7 ms-2">
-                                                    <span class="row amaranth-regular"
-                                                        style="font-size: 16px; color: black;">{{ $data->title }}</span>
-                                                    <span class="row urbanist-medium"
-                                                        style="font-size: 12px; color: #7F7F7F;">{{ $data->author }}</span>
-                                                    <span class="row urbanist-medium"
-                                                        style="font-size: 12px; color: #7F7F7F;">ISBN :
-                                                        {{ $data->isbn }}</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
-                                            {{ $data->name }}
-                                        </td>
-                                        <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
-                                            {{ $data->created_at }}
-                                        </td>
-                                        <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
-                                            {{ $data->created_at }}
-                                        </td>
-                                        <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
-                                            @switch($data->status)
-                                                @case(config('constants.peminjaman.status.1'))
-                                                    <span class="badge text-bg-warning">Pengajuan</span>
-                                                @break
-
-                                                @case(config('constants.peminjaman.status.2'))
-                                                    <span class="badge text-bg-primary">Dipinjam</span>
-                                                @break
-
-                                                @case(config('constants.peminjaman.status.3'))
-                                                    <span class="badge text-bg-danger">Ditolak</span>
-                                                @break
-
-                                                @case(config('constants.peminjaman.status.4'))
-                                                    <span class="badge text-bg-warning">Pengembalian</span>
-                                                @break
-
-                                                @case(config('constants.peminjaman.status.5'))
-                                                    <span class="badge text-bg-danger">Hilang</span>
-                                                @break
-
-                                                @case(config('constants.peminjaman.status.6'))
-                                                    <span class="badge text-bg-success">Dikembalikan</span>
-                                                @break
-
-                                                @default
-                                                    <span class="badge text-bg-primary">Dalam Proses</span>
-                                            @endswitch
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <form action="{{ route('peminjaman.update') }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="status"
-                                                            value="{{ base64_encode(config('constants.peminjaman.status.2')) }}">
-                                                        <input type="hidden" name="id" value="{{ $data->id }}">
-                                                        <button style="font-size: 14px;"
-                                                            class="btn btn-success">Terima</button>
-                                                    </form>
-                                                </div>
-                                                <div class="col">
-                                                    <form action="{{ route('peminjaman.update') }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="status"
-                                                            value="{{ base64_encode(config('constants.peminjaman.status.3')) }}">
-                                                        <input type="hidden" name="id" value="{{ $data->id }}">
-                                                        <button style="font-size: 14px;"
-                                                            class="btn btn-danger mt-2">Tolak</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        </div>
                     </div>
                 </div>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
