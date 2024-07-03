@@ -1,5 +1,14 @@
 @extends('components.head')
 
+@section('style')
+    <style>
+        .dropdown-menu {
+            max-height: 300px;
+            overflow-y: scroll;
+        }
+    </style>
+@endsection
+
 @section('content')
     @include('components.nav')
 
@@ -27,21 +36,22 @@
                         Kategori Buku
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dashboard') }}">Semua</a></li>
+                        @foreach ($categories as $category)
+                            <li><a class="dropdown-item" href="{{ route('dashboard', ['category' => $category->id]) }}">{{ $category->category }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
 
             <div class="col-sm-4">
-                <div class="input-group" style="height: 48px;">
+                <form style="height: 48px;" class="input-group" action="{{ route('dashboard') }}">
                     <input type="text" class="form-control" placeholder="Cari Judul Buku,Penulis atau Penerbit"
-                        aria-label="Cari Judul Buku,Penulis atau Penerbit" aria-describedby="book-searchbox">
-                    <span class="input-group-text" id="book-searchbox">
+                    aria-label="Cari Judul Buku,Penulis atau Penerbit" name="search" aria-describedby="book-searchbox">
+                    <button type="submit" class="input-group-text" id="book-searchbox">
                         <img src="/img/icon/ic_search.png" width="24px" height="24px" alt="search">
-                    </span>
-                </div>
+                    </button>
+                </form>
             </div>
         </span>
 
@@ -59,8 +69,10 @@
                             <h5 class="card-title amaranth-regular" style="font-size: 20px; color: black;">
                                 {{ $book->title }}
                             </h5>
-                            <p class="card-text urbanist-regular" style="font-size: 14px; color: #7F7F7F;">{{ $book->author }}.</p>
-                            <a href="{{ route('book.detail', ['id' => base64_encode(strval($book->id))]) }}" class="urbanis-semibold btn btn-primary"
+                            <p class="card-text urbanist-regular" style="font-size: 14px; color: #7F7F7F;">
+                                {{ $book->author }}.</p>
+                            <a href="{{ route('book.detail', ['id' => base64_encode(strval($book->id))]) }}"
+                                class="urbanis-semibold btn btn-primary"
                                 style="background-color: #6499E9; border: none; border-radius: 4px; color: white; font-size: 16px;">Pinjam</a>
                         </div>
                     </div>
@@ -68,7 +80,7 @@
             </div>
 
             <nav aria-label="Page navigation example" class="mt-5">
-                {{$paginator->withQueryString()->links('pagination::bootstrap-5')}}
+                {{ $paginator->withQueryString()->links('pagination::bootstrap-5') }}
             </nav>
         </div>
     </div>

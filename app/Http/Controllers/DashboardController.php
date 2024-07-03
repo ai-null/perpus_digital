@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\User;
 use App\Providers\UserProfileProvider;
 use Illuminate\Support\Collection;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    function showDashboard(UserProfileProvider $UserProfileProvider)
+    function showDashboard(Request $request, UserProfileProvider $UserProfileProvider)
     {
         if ($UserProfileProvider->isAdmin()) {
             $data = DB::table('peminjaman')
@@ -50,7 +51,23 @@ class DashboardController extends Controller
                 'peminjaman' => $dataPeminjaman
             ]);
         } else {
-            $paginator = Book::paginate(8)->onEachSide(-1);
+            $categoryQueryParam = $request->query('category');
+            $searchQueryParam = $request->query('search');
+
+            if ($categoryQueryParam != null) {
+                $category = Category::findOrFail($categoryQueryParam);
+                $paginator = $category->books()->paginate(8)->onEachSide(-1);
+            } else if ($searchQueryParam != null) {
+                $paginator = DB::table('book')
+                    ->whereAny([
+                        'title',
+                        'author',
+                        'publisher',
+                    ], 'LIKE', $searchQueryParam . '%')
+                    ->paginate(8)->onEachSide(-1);
+            } else {
+                $paginator = Book::paginate(8)->onEachSide(-1);
+            }
 
             // Get the S3 URL from the environment
             $s3Url = env('AWS_STORAGE_PATH');
@@ -62,6 +79,7 @@ class DashboardController extends Controller
 
             return view('user.dashboard', [
                 'paginator' => $paginator,
+                'categories' => Category::get(),
             ]);
         }
     }
