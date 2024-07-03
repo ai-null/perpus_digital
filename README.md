@@ -16,4 +16,4 @@
 
 todo:
 - [x] make book category
-- [ ] make peminjaman
+- [x] make peminjaman
