@@ -133,6 +133,7 @@ class AdminController extends Controller
             'cover' => $imageName,
             'publishing_year' => $request->publishing_year,
             'isbn' => $request->isbn,
+            'stock' => $request->stock,
             'language' => $request->language
         ]);
         $book->categories()->sync($request->categories);
