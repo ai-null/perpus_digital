@@ -12,7 +12,7 @@
         <ul class="navbar-nav ms-auto">
             <!--begin::Navbar Search-->
 
-            <li class="nav-item dropdown"> <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i
+            {{-- <li class="nav-item dropdown"> <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i
                         class="bi bi-chat-text"></i> <span class="navbar-badge badge text-bg-danger">3</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <a href="#" class="dropdown-item">
@@ -88,7 +88,7 @@
                         See All Notifications
                     </a>
                 </div>
-            </li>
+            </li> --}}
             <!--end::Notifications Dropdown Menu-->
             <!--begin::Fullscreen Toggle-->
             <li class="nav-item dropdown user-menu"> <a href="#" class="nav-link dropdown-toggle"
