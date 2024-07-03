@@ -115,7 +115,7 @@ class AdminController extends Controller
 
         // check whether need to update image
         $imageName = $book->cover;
-        if ($book->cover != $request->cover) {
+        if (($request->cover != null && $request->cover != '') && $book->cover != $request->cover) {
             $imageName = time() . '.' . $request->cover->extension();
             $image = $request->file('cover');
             $image->storeAs('public/covers', $imageName);
@@ -193,11 +193,15 @@ class AdminController extends Controller
                 break;
 
             case config('constants.peminjaman.status.5'):
-                # code...
+                $peminjaman->update([
+                    'status' => config('constants.peminjaman.status.5')
+                ]);
                 break;
 
             case config('constants.peminjaman.status.6'):
-                # code...
+                $peminjaman->update([
+                    'status' => config('constants.peminjaman.status.6')
+                ]);
                 break;
 
             default:

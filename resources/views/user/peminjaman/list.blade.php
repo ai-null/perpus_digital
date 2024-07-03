@@ -16,6 +16,20 @@
         </div>
 
         <div style="margin-top: 28px;">
+            @if (session('status') == 'success')
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <div>Sukses mengubah data peminjaman.</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if (session('status') == 'error')
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <div>Gagal mengubah data peminjaman.</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             @if ($errors->any())
                 <div class="alert alert-danger mt-4 alert-dismissible" role="alert">
                     <ul>
@@ -35,6 +49,7 @@
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Pengembalian</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +65,7 @@
                                         <img src="{{ env('AWS_STORAGE_PATH') . '/public/covers/' . $book->cover }}"
                                             width="80px" alt="cover">
                                     </div>
-                                    <div class="col">
+                                    <div class="col-auto col-8">
                                         <span class="row amaranth-regular"
                                             style="font-size: 16px; color: black;">{{ $book->title }}</span>
                                         <span class="row urbanist-medium"
@@ -64,33 +79,59 @@
                             </td>
                             <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
                                 @switch($book->pivot->status)
+                                    @case(config('constants.peminjaman.status.0'))
+                                        <span class="badge text-bg-danger">Dibatalkan</span>
+                                    @break
+
                                     @case(config('constants.peminjaman.status.1'))
                                         <span class="badge text-bg-warning">Dalam Proses</span>
                                     @break
 
                                     @case(config('constants.peminjaman.status.2'))
                                         <span class="badge text-bg-primary">Dipinjam</span>
-                                        @break
+                                    @break
 
-                                        @case(config('constants.peminjaman.status.3'))
-                                            <span class="badge text-bg-danger">Ditolak</span>
-                                        @break
+                                    @case(config('constants.peminjaman.status.3'))
+                                        <span class="badge text-bg-danger">Ditolak</span>
+                                    @break
 
-                                        @case(config('constants.peminjaman.status.4'))
-                                            <span class="badge text-bg-warning">Pengembalian</span>
-                                        @break
+                                    @case(config('constants.peminjaman.status.4'))
+                                        <span class="badge text-bg-warning">Pengembalian</span>
+                                    @break
 
-                                        @case(config('constants.peminjaman.status.5'))
-                                            <span class="badge text-bg-danger">Hilang</span>
-                                        @break
+                                    @case(config('constants.peminjaman.status.5'))
+                                        <span class="badge text-bg-danger">Hilang</span>
+                                    @break
 
-                                        @case(config('constants.peminjaman.status.6'))
-                                            <span class="badge text-bg-success">Dikembalikan</span>
-                                        @break
+                                    @case(config('constants.peminjaman.status.6'))
+                                        <span class="badge text-bg-success">Dikembalikan</span>
+                                    @break
 
-                                        @default
-                                            <span class="badge text-bg-primary">Dalam Proses</span>
-                                    @endswitch
+                                    @default
+                                        <span class="badge text-bg-primary">Dalam Proses</span>
+                                @endswitch
+                            </td>
+                            <td>
+                                @switch($book->pivot->status)
+                                    @case(config('constants.peminjaman.status.1'))
+                                        <form action="{{ route('user.peminjaman.cancel') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $book->pivot->id }}">
+                                            <button type="submit" class="btn btn-danger">Batalkan</button>
+                                        </form>
+                                    @break
+
+                                    @case(config('constants.peminjaman.status.2'))
+                                        <form action="{{ route('user.peminjaman.return') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $book->pivot->id }}">
+                                            <button type="submit" class="btn btn-warning">Kembalikan</button>
+                                        </form>
+                                    @break
+
+                                    @default
+                                        -
+                                @endswitch
                             </td>
                         </tr>
                     @endforeach
@@ -103,7 +144,7 @@
     <script>
         new DataTable('#myTable', {
             order: {
-                idx: 0,
+                idx: 3,
                 dir: 'desc'
             }
         });

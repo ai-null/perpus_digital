@@ -56,4 +56,14 @@ Route::prefix('book')->middleware([EnsureIsMember::class])->group(function () {
     Route::post('/borrow/{id}', [DashboardController::class, 'borrow'])->name('book.borrow');
 
     Route::get('/aktivitas', [DashboardController::class, 'showPeminjamanPage'])->name('user.peminjaman.list');
+    Route::post('/aktivitas/cancel', [DashboardController::class, 'cancelBook'])->name('user.peminjaman.cancel');
+    Route::post('/aktivitas/return', [DashboardController::class, 'returnBook'])->name('user.peminjaman.return');
+
+    Route::get('/aktivitas/return', function() {
+        return redirect()->route('user.peminjaman.list');
+    })->name('user.peminjaman.return');
+
+    Route::get('/aktivitas/cancel', function() {
+        return redirect()->route('user.peminjaman.list');
+    })->name('user.peminjaman.cancel');
 });

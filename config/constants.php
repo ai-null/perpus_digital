@@ -10,6 +10,7 @@ return [
 
     'peminjaman' => [
         'status' => [
+            '0' => 'cancelled',
             '1' => 'requested',
             '2' => 'borrowed',
             '3' => 'declined',

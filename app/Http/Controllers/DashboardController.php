@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Peminjaman;
 use App\Models\User;
 use App\Providers\UserProfileProvider;
 use Illuminate\Support\Collection;
@@ -121,7 +122,7 @@ class DashboardController extends Controller
 
         return redirect()->route('user.peminjaman.list', [
             'books' => $user->books()->get()
-        ])->with(['succes' => true]);
+        ])->with('succes', true);
     }
 
     public function showPeminjamanPage()
@@ -130,6 +131,34 @@ class DashboardController extends Controller
 
         return view('user.peminjaman.list', [
             'books' => $user->books()->get()
-        ])->with(['succes' => true]);
+        ])->with('succes', true);
+    }
+
+
+    public function cancelBook(Request $request)
+    {
+        return $this->changeHistoryStatusFromUser($request->id, config('constants.peminjaman.status.0'));
+    }
+
+    public function returnBook(Request $request)
+    {
+        return $this->changeHistoryStatusFromUser($request->id, config('constants.peminjaman.status.4'));
+    }
+
+    private function changeHistoryStatusFromUser(string $id, string $status)
+    {
+        $user = User::find(Auth::user()->id);
+        $peminjaman = Peminjaman::find($id);
+
+        // make sure user is the same as peminjaman data
+        if ($peminjaman->user_id == $user->id) {
+            $peminjaman->update([
+                'status' => $status
+            ]);
+
+            return redirect(route('user.peminjaman.list'))->with('status', 'success');
+        } else {
+            return redirect()->route('user.peminjaman.list')->with('status', 'error');
+        }
     }
 }
