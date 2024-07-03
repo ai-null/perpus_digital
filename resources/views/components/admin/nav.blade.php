@@ -158,7 +158,7 @@
                 </li>
 
                 <li
-                    class="nav-item {{ Request::routeIs('listBook') || Request::routeIs('addBook') || Request::routeIs('editBook') || Request::routeIs('category') ? 'menu-open' : '' }}">
+                    class="nav-item {{ Request::routeIs('book.list') || Request::routeIs('book.add') || Request::routeIs('book.edit') || Request::routeIs('category') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link"> <i class="nav-icon bi bi-journal-bookmark-fill"></i>
                         <p>
                             Menu Buku
@@ -166,13 +166,13 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"> <a href="{{ route('listBook') }}"
-                                class="nav-link {{ (Request::routeIs('listBook') || Request::routeIs('editBook')) ? 'active' : '' }}"> <i
+                        <li class="nav-item"> <a href="{{ route('book.list') }}"
+                                class="nav-link {{ (Request::routeIs('book.list') || Request::routeIs('book.edit')) ? 'active' : '' }}"> <i
                                     class="nav-icon bi bi-dot"></i>
                                 <p>Daftar buku</p>
                             </a> </li>
-                        <li class="nav-item"> <a href=" {{ route('addBook') }} "
-                                class="nav-link {{ Request::routeIs('addBook') ? 'active' : '' }}"> <i
+                        <li class="nav-item"> <a href=" {{ route('book.add') }} "
+                                class="nav-link {{ Request::routeIs('book.add') ? 'active' : '' }}"> <i
                                     class="nav-icon bi bi-dot"></i>
                                 <p>Tambah buku</p>
                             </a> </li>

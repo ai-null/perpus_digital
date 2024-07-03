@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -43,5 +44,12 @@ class User extends Authenticatable
         return [
             'password' => 'hashed',
         ];
+    }
+
+    public function books(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Book::class, 'peminjaman', 'user_id', 'book_id')
+            ->withPivot('id', 'status', 'created_at', 'updated_at');
     }
 }

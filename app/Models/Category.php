@@ -29,4 +29,9 @@ class Category extends Model
     protected $hidden = [
         'id',
     ];
+
+    public function books()
+    {                                 //  class  ,table_name  ,foreignPivotKey, relatedPivotKey
+        return $this->belongsToMany(Book::class, 'book_category', 'category_id', 'book_id');
+    }
 }

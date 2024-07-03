@@ -71,7 +71,7 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('addBook') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('book.add') }}" enctype="multipart/form-data">
                             @csrf
 
                             <h4>Data buku</h4>

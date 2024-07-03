@@ -59,6 +59,8 @@
             border: 1px solid red;
         }
     </style>
+
+    @yield('style')
 </head>
 
 <body>

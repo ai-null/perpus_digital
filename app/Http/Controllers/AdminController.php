@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
-use App\Models\BookCategory;
 use App\Models\Category;
 use App\Providers\UserProfileProvider;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
@@ -88,7 +88,7 @@ class AdminController extends Controller
             Storage::delete('public/covers/' . $book->cover);
             $book->delete();
 
-            return redirect()->route('listBook')->with(['success' => 'Data Berhasil Dihapus!']);
+            return redirect()->route('book.list')->with(['success' => 'Data Berhasil Dihapus!']);
         } else return redirect()->back();
     }
 
@@ -99,12 +99,10 @@ class AdminController extends Controller
         $decodedId = base64_decode(strval($id));
         $book = Book::where('id', $decodedId)->first();
 
-        // dd(BookCategory::where('book_id', $book->id)->pluck('category_id'));
-
         return view('book/edit', [
             'book' => $book,
             'categories' => Category::all(),
-            'selectedCategories' => BookCategory::where('book_id', $book->id)->pluck('category_id')->toArray()
+            'selectedCategories' => $book->categories()->get()->pluck('id')->toArray()
         ]);
     }
 
@@ -117,7 +115,7 @@ class AdminController extends Controller
 
         // check whether need to update image
         $imageName = $book->cover;
-        if ($book->cover != $request->cover) {
+        if (($request->cover != null && $request->cover != '') && $book->cover != $request->cover) {
             $imageName = time() . '.' . $request->cover->extension();
             $image = $request->file('cover');
             $image->storeAs('public/covers', $imageName);
@@ -139,7 +137,7 @@ class AdminController extends Controller
         ]);
         $book->categories()->sync($request->categories);
 
-        return redirect()->route('editBook', ['id' => base64_encode(strval($id))])->with(['success' => true]);
+        return redirect()->route('book.edit', ['id' => base64_encode(strval($id))])->with(['success' => true]);
     }
 
     // === PEMINJAMAN ===
@@ -147,8 +145,71 @@ class AdminController extends Controller
     function showPeminjamanPage(UserProfileProvider $UserProfileProvider)
     {
         if ($UserProfileProvider->isAdmin()) {
-            return view('admin.peminjaman');
+            $data = DB::table('peminjaman')
+                ->select(
+                    'peminjaman.id',
+                    'peminjaman.created_at',
+                    'peminjaman.status',
+                    'peminjaman.updated_at',
+                    'user.id as userId',
+                    'user.name',
+                    'book.cover',
+                    'book.title',
+                    'book.isbn',
+                    'book.author'
+                )
+                ->leftJoin('user', 'user.id', '=', 'peminjaman.user_id')
+                ->leftJoin('book', 'book.id', '=', 'peminjaman.book_id')
+                ->get();
+
+            return view('admin.peminjaman', [
+                'peminjaman' => $data,
+            ]);
         } else return redirect()->back();
+    }
+
+    function peminjamanUpdate(Request $request)
+    {
+        $status = base64_decode($request->status);
+        $peminjaman = DB::table('peminjaman')->where('id', '=', $request->id);
+
+        switch ($status) {
+            case config('constants.peminjaman.status.1'):
+                // do nothing
+                break;
+            case config('constants.peminjaman.status.2'):
+                $peminjaman->update([
+                    'status' => config('constants.peminjaman.status.2')
+                ]);
+                break;
+            case config('constants.peminjaman.status.3'):
+                $peminjaman->update([
+                    'status' => config('constants.peminjaman.status.3')
+                ]);
+                break;
+
+            case config('constants.peminjaman.status.4'):
+                # code...
+                break;
+
+            case config('constants.peminjaman.status.5'):
+                $peminjaman->update([
+                    'status' => config('constants.peminjaman.status.5')
+                ]);
+                break;
+
+            case config('constants.peminjaman.status.6'):
+                $peminjaman->update([
+                    'status' => config('constants.peminjaman.status.6')
+                ]);
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        return redirect(route('peminjaman.update'));
     }
 
 

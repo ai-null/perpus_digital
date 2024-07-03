@@ -66,7 +66,7 @@
                                         <td> {{ date('d-M-Y', strtotime($book->created_at)) }}</td>
                                         <td>
                                             <div class="col">
-                                                <a href="{{ route('editBook', ['id' => base64_encode(strval($book->id))]) }}"
+                                                <a href="{{ route('book.edit', ['id' => base64_encode(strval($book->id))]) }}"
                                                     class="btn btn-warning">edit</a>
                                                 <form action="{{ route('book.delete') }}" method="POST">
                                                     @csrf

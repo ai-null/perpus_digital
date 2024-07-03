@@ -52,8 +52,8 @@
                     href="{{ route('dashboard') }}">Koleksi Buku</a>
 
                 <a class="btn btn btn-outline-light nav-link urbanist-semibold"
-                    style="border: 1px solid transparent; font-size: 16px; color: {{ request()->is('/') ? '#3962D7' : '#BDBDBD' }}; margin-right: 24px; padding: 14px 22px;"
-                    href="{{ route('dashboard') }}">Aktivitas</a>
+                    style="border: 1px solid transparent; font-size: 16px; color: {{ Route::is('user.peminjaman.list') ? '#3962D7' : '#BDBDBD' }}; margin-right: 24px; padding: 14px 22px;"
+                    href="{{ route('user.peminjaman.list') }}">Aktivitas</a>
 
                 <a href="#">
                     <img class="nav-link" height="48px" width="48px" src="/img/icon/ic_bell.webp" alt="notification">
