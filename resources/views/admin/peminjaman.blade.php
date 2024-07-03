@@ -62,21 +62,19 @@
                                                 <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
                                                     <b>#{{ $data->id }}</b>
                                                 </td>
-                                                <td>
-                                                    <div class="row row-cols-auto">
-                                                        <div class="col-4">
-                                                            <img src="{{ env('AWS_STORAGE_PATH') . '/public/covers/' . $data->cover }}"
-                                                                width="80px" alt="cover">
-                                                        </div>
-                                                        <div class="col-7 ms-2">
-                                                            <span class="row amaranth-regular"
-                                                                style="font-size: 16px; color: black;">{{ $data->title }}</span>
-                                                            <span class="row urbanist-medium"
-                                                                style="font-size: 12px; color: #7F7F7F;">{{ $data->author }}</span>
-                                                            <span class="row urbanist-medium"
-                                                                style="font-size: 12px; color: #7F7F7F;">ISBN :
-                                                                {{ $data->isbn }}</span>
-                                                        </div>
+                                                <td class="row">
+                                                    <div class="col-4">
+                                                        <img src="{{ env('AWS_STORAGE_PATH') . '/public/covers/' . $data->cover }}"
+                                                            width="100%" alt="cover">
+                                                    </div>
+                                                    <div class="col-auto col-8" style="overflow: hidden">
+                                                        <span class="row amaranth-regular"
+                                                            style="font-size: 16px; color: black;">{{ $data->title }}</span>
+                                                        <span class="row urbanist-medium"
+                                                            style="font-size: 12px; color: #7F7F7F;">{{ $data->author }}</span>
+                                                        <span class="row urbanist-medium"
+                                                            style="font-size: 12px; color: #7F7F7F;">ISBN :
+                                                            {{ $data->isbn }}</span>
                                                     </div>
                                                 </td>
                                                 <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
