@@ -25,6 +25,7 @@ class Book extends Model
         'publishing_year',
         'isbn',
         'language',
+        'stock',
     ];
 
     /**
