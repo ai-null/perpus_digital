@@ -75,6 +75,10 @@
                                 Maksimal peminjaman adalah 7 hari sejak proses peminjaman dikonfirmasi oleh petugas
                                 perpustakaan.
                             </div>
+
+                            <div class="alert alert-warning" role="alert">
+                                Pastikan petugas perpustakaan berada di tempat apabila ingin mengembalikan buku bacaan.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -107,9 +111,9 @@
 
                     <form action="{{ route('book.borrow', base64_encode($book->id)) }}" method="POST">
                         @csrf
-                        <button type="submit"
+                        <button 
                             style="width: 100%; background-color: white; border: 1px solid #6499E9; border-radius: 8px; color: #6499E9; margin-top: 16px; font-size: 16px;"
-                            class="btn btn-primary" style="urbanist-semibold">Tambah ke Daftar Baca</button>
+                            class="btn btn-primary" type="button" style="urbanist-semibold">Tambah ke Daftar Baca</button>
                     </form>
                 </div>
             </div>
@@ -146,7 +150,7 @@
                     </style>
 
 
-                    <table>
+                    <table style="width: 32rem;">
                         <thead>
                             <tr>
                                 <th class="amaranth-regular" style="font-size: 20px;">Informasi Buku</th>

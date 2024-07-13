@@ -17,6 +17,6 @@
 revisi:
 - [ ] menghapus pengembalian button and status
 - [ ] menambahkan warning telat pengembalian buku di history
-- [ ] menambahkan warning pengembalian jika petugas ada di perpus
+- [x] menambahkan warning pengembalian jika petugas ada di perpus
 - [ ] menambahkan list top siswa paling banyak membaca
 - [ ] menambahkan list top buku paling banyak dibaca
