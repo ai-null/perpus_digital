@@ -1,7 +1,7 @@
 @extends('components.admin.head')
 
 @section('head')
-<link href="https://cdn.datatables.net/v/bs5/dt-2.0.8/datatables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/bs5/dt-2.0.8/datatables.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -63,7 +63,7 @@
                             </div> <!--end::Small Box Widget 4-->
                         </div> <!--end::Col-->
                     </div>
-                    <div class="col-auto">
+                    <div class="col-auto col-lg-8">
                         {{-- <div class="card text-white bg-primary bg-gradient border-primary mb-4"> --}}
                         <div class="card text-white border-primary mb-4">
                             <div class="card-header border-0">
@@ -107,6 +107,10 @@
                                                 </td>
                                                 <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
                                                     @switch($data->status)
+                                                        @case(config('constants.peminjaman.status.0'))
+                                                            <span class="badge text-bg-danger">Dibatalkan</span>
+                                                        @break
+
                                                         @case(config('constants.peminjaman.status.1'))
                                                             <span class="badge text-bg-warning">Pengajuan</span>
                                                         @break
@@ -134,6 +138,10 @@
                                                         @default
                                                             <span class="badge text-bg-primary">Dalam Proses</span>
                                                     @endswitch
+
+                                                    @if ($data->is_late)
+                                                        <span class="badge text-bg-danger">Pengembalian telat</span>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -155,7 +163,7 @@
             // scrollCollapse: false,
             scrollY: '300px',
             order: {
-                idx: 1,
+                idx: 0,
                 dir: 'desc'
             }
         });

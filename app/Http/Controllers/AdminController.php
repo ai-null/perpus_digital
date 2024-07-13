@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Peminjaman;
 use App\Providers\UserProfileProvider;
+use App\Http\Controllers\BaseController;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
-class AdminController extends Controller
+class AdminController extends BaseController
 {
 
     // === BOOK ===
@@ -151,7 +152,7 @@ class AdminController extends Controller
                     'peminjaman.id',
                     'peminjaman.created_at',
                     'peminjaman.status',
-                    'peminjaman.updated_at',
+                    'peminjaman.return_at',
                     'user.id as userId',
                     'user.name',
                     'book.cover',
@@ -163,8 +164,14 @@ class AdminController extends Controller
                 ->leftJoin('book', 'book.id', '=', 'peminjaman.book_id')
                 ->get();
 
+
+                $books = $data->map(function($book) {
+                    $book->is_late = $this->isLate($book);
+                    return $book;
+                });
+
             return view('admin.peminjaman', [
-                'peminjaman' => $data,
+                'peminjaman' => $books,
             ]);
         } else return redirect()->back();
     }
@@ -172,7 +179,7 @@ class AdminController extends Controller
     function peminjamanUpdate(Request $request)
     {
         $status = base64_decode($request->status);
-        $peminjaman = DB::table('peminjaman')->where('id', '=', $request->id);
+        $peminjaman = Peminjaman::find($request->id);
 
         switch ($status) {
             case config('constants.peminjaman.status.1'):
@@ -184,6 +191,11 @@ class AdminController extends Controller
                 ]);
                 break;
             case config('constants.peminjaman.status.3'):
+                $book = Book::find($peminjaman->book_id);
+
+                $book->stock = $book->stock + 1;
+                $book->save();
+
                 $peminjaman->update([
                     'status' => config('constants.peminjaman.status.3')
                 ]);
@@ -199,7 +211,13 @@ class AdminController extends Controller
                 ]);
                 break;
 
+                // pengembalian
             case config('constants.peminjaman.status.6'):
+                $book = Book::find($peminjaman->book_id);
+
+                $book->stock = $book->stock + 1;
+                $book->save();
+
                 $peminjaman->update([
                     'status' => config('constants.peminjaman.status.6')
                 ]);

@@ -14,7 +14,8 @@ return [
             '1' => 'requested',
             '2' => 'borrowed',
             '3' => 'declined',
-            '4' => 'returned',
+            // deleted, the member / siswa dont need to click 'pengembalian' button
+            // '4' => 'returned', 
             '5' => 'vanished',
             '6' => 'accepted',
         ]

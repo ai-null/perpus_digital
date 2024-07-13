@@ -72,12 +72,9 @@
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-warning" role="alert">
-                                Maksimal peminjaman adalah 7 hari sejak proses peminjaman dikonfirmasi oleh petugas
-                                perpustakaan.
-                            </div>
-
-                            <div class="alert alert-warning" role="alert">
-                                Pastikan petugas perpustakaan berada di tempat apabila ingin mengembalikan buku bacaan.
+                                <b>Mohon Diperhatikan!!</b><br/>
+                                Maksimal peminjaman buku adalah <b>7 Hari</b> sejak proses peminjaman telah dikonfirmasi oleh petugas perpustakaan. 
+                                <br/><br/>Pastikan petugas perpustakaan berada ditempat saat mengembalikan buku bacaan. Terima kasih
                             </div>
                         </div>
                     </div>

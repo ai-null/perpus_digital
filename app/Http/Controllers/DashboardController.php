@@ -7,12 +7,13 @@ use App\Models\Category;
 use App\Models\Peminjaman;
 use App\Models\User;
 use App\Providers\UserProfileProvider;
+use App\Http\Controllers\BaseController;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class DashboardController extends Controller
+class DashboardController extends BaseController
 {
     function showDashboard(Request $request, UserProfileProvider $UserProfileProvider)
     {
@@ -30,7 +31,7 @@ class DashboardController extends Controller
                     'peminjaman.id',
                     'peminjaman.created_at',
                     'peminjaman.status',
-                    'peminjaman.updated_at',
+                    'peminjaman.return_at',
                     'user.id as userId',
                     'user.name',
                     'book.cover',
@@ -42,6 +43,11 @@ class DashboardController extends Controller
                 ->leftJoin('book', 'book.id', '=', 'peminjaman.book_id')
                 ->get();
 
+                $peminjaman = $dataPeminjaman->map(function($book) {
+                    $book->is_late = $this->isLate($book);
+                    return $book;
+                });
+
             return view('admin.dashboard', [
                 'general' => [
                     'request' => $this->countByStatus($data, config('constants.peminjaman.status.1')),
@@ -49,7 +55,7 @@ class DashboardController extends Controller
                     'vanished' => $this->countByStatus($data, config('constants.peminjaman.status.5')),
                     'accepted' => $this->countByStatus($data, config('constants.peminjaman.status.6')),
                 ],
-                'peminjaman' => $dataPeminjaman
+                'peminjaman' => $peminjaman
             ]);
         } else {
             $categoryQueryParam = $request->query('category');
@@ -116,9 +122,15 @@ class DashboardController extends Controller
 
         $user = User::find(Auth::user()->id);
 
+        // create peminjaman data and decrease book stock
         $user->books()->save($book, [
-            'status' => config('constants.peminjaman.status.1')
+            'status' => config('constants.peminjaman.status.1'),
+            'created_at' => now()->toDateTimeString(),
+            'return_at' => now()->addDays(7)->toDateTimeString(),
         ]);
+
+        $book->stock = $book->stock - 1;
+        $book->save();
 
         return redirect()->route('user.peminjaman.list', [
             'books' => $user->books()->get()
@@ -128,9 +140,13 @@ class DashboardController extends Controller
     public function showPeminjamanPage()
     {
         $user = User::find(Auth::user()->id);
-
+        $books = $user->books()->get()->map(function($book) {
+            $book->is_late = $this->isLate($book->pivot);
+            return $book;
+        });
+        
         return view('user.peminjaman.list', [
-            'books' => $user->books()->get()
+            'books' => $books
         ])->with('succes', true);
     }
 
@@ -140,10 +156,10 @@ class DashboardController extends Controller
         return $this->changeHistoryStatusFromUser($request->id, config('constants.peminjaman.status.0'));
     }
 
-    public function returnBook(Request $request)
-    {
-        return $this->changeHistoryStatusFromUser($request->id, config('constants.peminjaman.status.4'));
-    }
+    // public function returnBook(Request $request)
+    // {
+    //     return $this->changeHistoryStatusFromUser($request->id, config('constants.peminjaman.status.4'));
+    // }
 
     private function changeHistoryStatusFromUser(string $id, string $status)
     {
@@ -155,6 +171,13 @@ class DashboardController extends Controller
             $peminjaman->update([
                 'status' => $status
             ]);
+
+            if (config('constants.peminjaman.status.0')) {
+                $book = Book::find($peminjaman->book_id);
+
+                $book->stock = $book->stock + 1;
+                $book->save();
+            }
 
             return redirect(route('user.peminjaman.list'))->with('status', 'success');
         } else {
