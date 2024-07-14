@@ -35,30 +35,8 @@ class DashboardController extends BaseController
                 config('constants.peminjaman.status.6'),
             ])->get();
 
-        $dataPeminjaman = DB::table('peminjaman')
-            ->select(
-                'peminjaman.id',
-                'peminjaman.created_at',
-                'peminjaman.status',
-                'peminjaman.return_at',
-                'user.id as userId',
-                'user.name',
-                'book.cover',
-                'book.title',
-                'book.isbn',
-                'book.author'
-            )
-            ->leftJoin('user', 'user.id', '=', 'peminjaman.user_id')
-            ->leftJoin('book', 'book.id', '=', 'peminjaman.book_id')
-            ->get();
-
             $today = Carbon::now();
             $lastMonth = Carbon::now()->subMonth(1);
-
-        $peminjaman = $dataPeminjaman->map(function ($book) {
-            $book->is_late = $this->isLate($book);
-            return $book;
-        });
 
         $topBookBorrowed = DB::table('peminjaman')
             ->select('book.title', DB::raw('count(*) as borrowed'))

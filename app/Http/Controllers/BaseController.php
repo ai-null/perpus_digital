@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 abstract class BaseController extends Controller
 {
     public function isLate($data): bool
     {
-        return ($data->status == config('constants.peminjaman.status.2')
-            || $data->status == config('constants.peminjaman.status.6'))
-            && $data->created_at > $data->return_at;
+        if ($data->status == config('constants.peminjaman.status.6')) { //accepted
+            return $data->updated_at > $data->return_at;
+        } else if ($data->status == config('constants.peminjaman.status.2')) { //borrowed
+            return Carbon::now() > $data->return_at;
+        } else {
+            return false;
+        }
     }
 }
