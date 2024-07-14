@@ -4,6 +4,32 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update Kategori</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('category.update') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input id="input-hidden-category" type="hidden" name="category_id">
+                            <label for="input-category" class="form-label">Category</label>
+                            <input type="text" class="form-control" name="category" id="input-category">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     {{-- CONTENT --}}
     <main class="app-main"> <!--begin::App Content Header-->
         <div class="app-content-header"> <!--begin::Container-->
@@ -41,7 +67,7 @@
 
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible" role="alert">
-                        <div>{{session('success')}}</div>
+                        <div>{{ session('success') }}</div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
@@ -62,15 +88,20 @@
                                     </thead>
                                     <tbody>
 
-                                        @foreach ($paginator as $key=>$category)
+                                        @foreach ($paginator as $key => $category)
                                             <tr>
-                                                <td> {{ $key+1 }} </td>
+                                                <td> {{ $key + 1 }} </td>
                                                 <td> {{ $category->category }} </td>
                                                 <td>
                                                     <div class="row text-center">
-                                                        <div class="col align-self-center"><a style="width: 100%;"
-                                                                href="{{ route('book.add') }}"
-                                                                class="btn btn-warning">edit</a></div>
+                                                        <div class="col align-self-center">
+
+                                                            <button data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                                type="button" style="width: 100%;"
+                                                                data-bs-name="{{ $category->category }}"
+                                                                data-bs-id="{{ $category->id }}"
+                                                                class="btn btn-warning btn-edit">edit</button>
+                                                        </div>
                                                         <form action="{{ route('category.delete') }}" method="POST"
                                                             class="col align-self-center">
                                                             @csrf
@@ -121,5 +152,18 @@
             paging: false,
             scrollY: 300
         });
+
+        var editBtn = document.getElementsByClassName('btn-edit');
+        for (let index = 0; index < editBtn.length; index++) {
+            const btn = editBtn[index];
+
+            btn.addEventListener('click', function(e) {
+                console.log(btn.getAttribute('data-bs-id'))
+                console.log(btn.getAttribute('data-bs-name'))
+
+                document.getElementById('input-hidden-category').value = btn.getAttribute('data-bs-id')
+                document.getElementById('input-category').value = btn.getAttribute('data-bs-name')
+            });
+        }
     </script>
 @endsection

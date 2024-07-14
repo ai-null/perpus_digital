@@ -263,7 +263,35 @@ class AdminController extends BaseController
                 'category' => $request->category
             ]);
 
-            return redirect(route('category'))->with('success', 'Sukses menambahkan buku.');
+            return redirect(route('category'))->with('success', 'Sukses menambahkan kategori.');
+        } catch (ValidationException $e) {
+            return redirect(route('category'))->withErrors([
+                'errors'    => $e->getMessage(),
+            ]);
+        } catch (Exception $e) {
+            return redirect(route('category'))->withErrors([
+                'errors'    => 'Terjadi sebuah kesalahan.',
+            ]);
+        }
+    }
+
+    function updateCategory(Request $request, UserProfileProvider $UserProfileProvider)
+    {
+        if (!$UserProfileProvider->isAdmin()) return redirect()->back();
+
+        try {
+            $request->validate([
+                'category' => ['required', 'string', 'max:50', 'unique:' . Category::class],
+            ], [
+                'category.required'             => 'Kategori perlu diisi.',
+                'category.unique'               => 'Kategori tidak boleh sama.',
+            ]);
+
+            $category = Category::find($request->category_id);
+            $category->category = $request->category;
+            $category->save();
+
+            return redirect(route('category'))->with('success', 'Sukses mengubah kategori.');
         } catch (ValidationException $e) {
             return redirect(route('category'))->withErrors([
                 'errors'    => $e->getMessage(),
