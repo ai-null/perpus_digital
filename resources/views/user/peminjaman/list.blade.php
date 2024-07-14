@@ -73,9 +73,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;"> {{ $book->created_at }}
+                            <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;"> 
+                            {{  date('F j, Y', strtotime($book->pivot->created_at)) }}
                             </td>
-                            <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;"> {{ $book->created_at }}
+                            <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;"> 
+                                {{  date('F j, Y', strtotime($book->pivot->return_at)) }}
                             </td>
                             <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
                                 @switch($book->pivot->status)
@@ -95,9 +97,9 @@
                                         <span class="badge text-bg-danger">Ditolak</span>
                                     @break
 
-                                    @case(config('constants.peminjaman.status.4'))
+                                    {{-- @case(config('constants.peminjaman.status.4'))
                                         <span class="badge text-bg-warning">Pengembalian</span>
-                                    @break
+                                    @break --}}
 
                                     @case(config('constants.peminjaman.status.5'))
                                         <span class="badge text-bg-danger">Hilang</span>
@@ -110,6 +112,10 @@
                                     @default
                                         <span class="badge text-bg-primary">Dalam Proses</span>
                                 @endswitch
+
+                                @if ($book->is_late)
+                                    <span class="badge text-bg-danger">Pengembalian telat</span>
+                                @endif
                             </td>
                             <td>
                                 @switch($book->pivot->status)
@@ -121,13 +127,13 @@
                                         </form>
                                     @break
 
-                                    @case(config('constants.peminjaman.status.2'))
+                                    {{-- @case(config('constants.peminjaman.status.2'))
                                         <form action="{{ route('user.peminjaman.return') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="id" value="{{ $book->pivot->id }}">
                                             <button type="submit" class="btn btn-warning">Kembalikan</button>
                                         </form>
-                                    @break
+                                    @break --}}
 
                                     @default
                                         -
@@ -144,7 +150,7 @@
     <script>
         new DataTable('#myTable', {
             order: {
-                idx: 3,
+                idx: 0,
                 dir: 'desc'
             }
         });
