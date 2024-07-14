@@ -153,6 +153,7 @@ class AdminController extends BaseController
                     'peminjaman.created_at',
                     'peminjaman.status',
                     'peminjaman.return_at',
+                    'peminjaman.updated_at',
                     'user.id as userId',
                     'user.name',
                     'book.cover',

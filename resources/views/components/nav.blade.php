@@ -84,9 +84,9 @@
                         <ul class="dropdown-menu">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Riwayat Pinjam</a></li>
-                                <li><a class="dropdown-item" href="#">Daftar Baca</a></li>
+                                {{-- <li><a class="dropdown-item" href="#">Profile</a></li> --}}
+                                {{-- <li><a class="dropdown-item" href="#">Riwayat Pinjam</a></li> --}}
+                                {{-- <li><a class="dropdown-item" href="#">Daftar Baca</a></li> --}}
                                 <li><button type="submit" class="dropdown-item">
                                         Keluar
                                     </button>

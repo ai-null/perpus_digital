@@ -50,6 +50,6 @@ class User extends Authenticatable
     {
         return $this
             ->belongsToMany(Book::class, 'peminjaman', 'user_id', 'book_id')
-            ->withPivot('id', 'status', 'created_at', 'return_at');
+            ->withPivot('id', 'status', 'created_at', 'return_at', 'updated_at');
     }
 }
