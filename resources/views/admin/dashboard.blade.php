@@ -2,6 +2,10 @@
 
 @section('head')
     <link href="https://cdn.datatables.net/v/bs5/dt-2.0.8/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
+        integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
+        integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script>
 @endsection
 
 @section('content')
@@ -26,128 +30,83 @@
         </div> <!--end::App Content Header--> <!--begin::App Content-->
         <div class="app-content"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Row-->
+                <div class="row">
+                    <div class="col"> <!--begin::Small Box Widget 1-->
+                        <div class="small-box text-bg-warning">
+                            <div class="inner">
+                                <h3>{{ $general['request'] }}</h3>
+                                <p>Request Peminjaman Baru</p>
+                            </div>
+                        </div> <!--end::Small Box Widget 1-->
+                    </div> <!--end::Col-->
+                    <div class="col"> <!--begin::Small Box Widget 3-->
+                        <div class="small-box text-bg-primary">
+                            <div class="inner">
+                                <h3>{{ $general['borrowed'] }}</h3>
+                                <p>Buku Dipinjam</p>
+                            </div>
+                        </div> <!--end::Small Box Widget 3-->
+                    </div> <!--end::Col-->
+                    <div class="col"> <!--begin::Small Box Widget 2-->
+                        <div class="small-box text-bg-success">
+                            <div class="inner">
+                                {{-- <h3>53<sup class="fs-5">%</sup></h3> --}}
+                                <h3>{{ $general['accepted'] }}</h3>
+                                <p>Peminjaman Buku Sukses</p>
+                            </div>
+                        </div> <!--end::Small Box Widget 2-->
+                    </div> <!--end::Col-->
+                    <div class="col"> <!--begin::Small Box Widget 4-->
+                        <div class="small-box text-bg-danger">
+                            <div class="inner">
+                                <h3>{{ $general['vanished'] }}</h3>
+                                <p>Buku Hilang</p>
+                            </div>
+                        </div> <!--end::Small Box Widget 4-->
+                    </div> <!--end::Col-->
+                </div>
 
                 <div class="row">
-                    <div class="col-3">
-                        <div> <!--begin::Small Box Widget 1-->
-                            <div class="small-box text-bg-warning">
-                                <div class="inner">
-                                    <h3>{{ $general['request'] }}</h3>
-                                    <p>Request Peminjaman Baru</p>
-                                </div>
-                            </div> <!--end::Small Box Widget 1-->
-                        </div> <!--end::Col-->
-                        <div> <!--begin::Small Box Widget 3-->
-                            <div class="small-box text-bg-primary">
-                                <div class="inner">
-                                    <h3>{{ $general['borrowed'] }}</h3>
-                                    <p>Buku Dipinjam</p>
-                                </div>
-                            </div> <!--end::Small Box Widget 3-->
-                        </div> <!--end::Col-->
-                        <div> <!--begin::Small Box Widget 2-->
-                            <div class="small-box text-bg-success">
-                                <div class="inner">
-                                    {{-- <h3>53<sup class="fs-5">%</sup></h3> --}}
-                                    <h3>{{ $general['accepted'] }}</h3>
-                                    <p>Peminjaman Buku Sukses</p>
-                                </div>
-                            </div> <!--end::Small Box Widget 2-->
-                        </div> <!--end::Col-->
-                        <div> <!--begin::Small Box Widget 4-->
-                            <div class="small-box text-bg-danger">
-                                <div class="inner">
-                                    <h3>{{ $general['vanished'] }}</h3>
-                                    <p>Buku Hilang</p>
-                                </div>
-                            </div> <!--end::Small Box Widget 4-->
-                        </div> <!--end::Col-->
+                    <div class="col-12">
+                        <div class="callout callout-info mb-3">
+                            <strong>Data diambil pada: 
+                                {{ date('F j', strtotime($compareDate)) }}
+                                - 
+                                {{ date('F j, Y', strtotime($today)) }}
+                            </strong>
+                        </div>
                     </div>
-                    <div class="col-auto col-lg-8">
-                        {{-- <div class="card text-white bg-primary bg-gradient border-primary mb-4"> --}}
-                        <div class="card text-white border-primary mb-4">
-                            <div class="card-header border-0">
-                                <h3 class="card-title" style="color: black;">Data Peminjaman</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col col-lg-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Kategori paling populer</h3>
                             </div>
                             <div class="card-body">
-                                <table id="myTable" class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Info Buku</th>
-                                            <th>Nama Siswa</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($peminjaman as $data)
-                                            <tr>
-                                                <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
-                                                    <b>#{{ $data->id }}</b>
-                                                </td>
-                                                <td>
-                                                    <div class="row row-cols-auto">
-                                                        <div class="col-4">
-                                                            <img src="{{ env('AWS_STORAGE_PATH') . '/public/covers/' . $data->cover }}"
-                                                                width="80px" alt="cover">
-                                                        </div>
-                                                        <div class="col-7 ms-2">
-                                                            <span class="row amaranth-regular"
-                                                                style="font-size: 16px; color: black;">{{ $data->title }}</span>
-                                                            <span class="row urbanist-medium"
-                                                                style="font-size: 12px; color: #7F7F7F;">{{ $data->author }}</span>
-                                                            <span class="row urbanist-medium"
-                                                                style="font-size: 12px; color: #7F7F7F;">ISBN :
-                                                                {{ $data->isbn }}</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
-                                                    {{ $data->name }}
-                                                </td>
-                                                <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
-                                                    @switch($data->status)
-                                                        @case(config('constants.peminjaman.status.0'))
-                                                            <span class="badge text-bg-danger">Dibatalkan</span>
-                                                        @break
-
-                                                        @case(config('constants.peminjaman.status.1'))
-                                                            <span class="badge text-bg-warning">Pengajuan</span>
-                                                        @break
-
-                                                        @case(config('constants.peminjaman.status.2'))
-                                                            <span class="badge text-bg-primary">Dipinjam</span>
-                                                        @break
-
-                                                        @case(config('constants.peminjaman.status.3'))
-                                                            <span class="badge text-bg-danger">Ditolak</span>
-                                                        @break
-
-                                                        @case(config('constants.peminjaman.status.4'))
-                                                            <span class="badge text-bg-warning">Pengembalian</span>
-                                                        @break
-
-                                                        @case(config('constants.peminjaman.status.5'))
-                                                            <span class="badge text-bg-danger">Hilang</span>
-                                                        @break
-
-                                                        @case(config('constants.peminjaman.status.6'))
-                                                            <span class="badge text-bg-success">Dikembalikan</span>
-                                                        @break
-
-                                                        @default
-                                                            <span class="badge text-bg-primary">Dalam Proses</span>
-                                                    @endswitch
-
-                                                    @if ($data->is_late)
-                                                        <span class="badge text-bg-danger">Pengembalian telat</span>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                <div>
+                                    <div id="pie-chart"></div>
+                                </div>
                             </div>
+                        </div>
+                    </div> <!-- /.col -->
+
+                    <div class="col col-auto">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Buku paling populer</div>
+                            </div>
+                            <div id="column-chart-book"></div>
+                        </div>
+                    </div>
+
+                    <div class="col col-auto">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Pembaca terbanyak</div>
+                            </div>
+                            <div id="column-chart"></div>
                         </div>
                     </div>
                 </div>
@@ -167,5 +126,104 @@
                 dir: 'desc'
             }
         });
+
+        //-------------
+        // - PIE CHART -
+        //-------------
+        const pie_chart_options = {
+            series: [
+                @foreach ($popularCategories as $category)
+                    {{ $category->borrowed }},
+                @endforeach
+            ],
+            chart: {
+                type: "donut",
+            },
+            labels: [
+                @foreach ($popularCategories as $category)
+                    '{{ $category->category }}',
+                @endforeach
+            ],
+            dataLabels: {
+                enabled: false,
+            },
+            colors: [
+                "#0d6efd",
+                "#20c997",
+                "#ffc107",
+                "#d63384",
+                "#6f42c1",
+                "#adb5bd",
+            ],
+        };
+
+        const pie_chart = new ApexCharts(
+            document.querySelector("#pie-chart"),
+            pie_chart_options,
+        );
+        pie_chart.render();
+
+        //-----------------
+        // - END PIE CHART -
+        //-----------------
+
+
+        //-------------
+        // - COLUMN CHART PEMBACA -
+        //-------------
+        const columnChartOptions = {
+            chart: {
+                type: "bar",
+            },
+            series: [{
+                data: [
+                    @foreach ($popularUser as $user)
+                        {
+                            x: '{{ $user->name }}',
+                            y: {{ $user->borrowed }},
+                        },
+                    @endforeach
+                ]
+            }]
+        };
+
+        const columnChart = new ApexCharts(
+            document.querySelector("#column-chart"),
+            columnChartOptions,
+        );
+        columnChart.render();
+
+        //-----------------
+        // - END COLUMN CHART PEMBACA -
+        //-----------------
+
+        //-------------
+        // - COLUMN CHART BUKU -
+        //-------------
+        const columnChartBookOptions = {
+            chart: {
+                type: "bar",
+            },
+            series: [{
+                data: [
+                    @foreach ($popularBook as $book)
+                        {
+                            x: '{{ $book->title }}',
+                            y: {{ $book->borrowed }},
+                        },
+                    @endforeach
+                ]
+            }]
+        };
+
+        const columnChartBook = new ApexCharts(
+            document.querySelector("#column-chart-book"),
+            columnChartBookOptions,
+        );
+        columnChartBook.render();
+
+        //-----------------
+        // - END COLUMN CHART BUKU -
+        //-----------------
     </script>
 @endsection
