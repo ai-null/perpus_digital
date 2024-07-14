@@ -78,6 +78,17 @@
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Buku paling populer</div>
+                            </div>
+                            <div id="column-chart-book"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col col-lg-5">
                         <div class="card">
@@ -92,16 +103,7 @@
                         </div>
                     </div> <!-- /.col -->
 
-                    <div class="col col-auto">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">Buku paling populer</div>
-                            </div>
-                            <div id="column-chart-book"></div>
-                        </div>
-                    </div>
-
-                    <div class="col col-auto">
+                    <div class="col col-auto col-lg-7">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">Pembaca terbanyak</div>
@@ -203,6 +205,7 @@
         const columnChartBookOptions = {
             chart: {
                 type: "bar",
+                height: '400px' 
             },
             series: [{
                 data: [
