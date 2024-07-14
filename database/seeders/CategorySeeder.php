@@ -3,10 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Book;
 use App\Models\Category;
-use App\Models\fakes\BookFake;
-use Faker;
 
 class CategorySeeder extends Seeder
 {
@@ -15,7 +12,6 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker\Factory::create();
         $bookCategories = [
             'Fiksi',
             'Non-Fiksi',
