@@ -18,5 +18,7 @@ class DatabaseSeeder extends Seeder
         for ($i = 0; $i < 35; $i++) {
             $this->call(BookSeeder::class);
         }
+
+        
     }
 }

@@ -62,29 +62,31 @@
                                                 <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
                                                     <b>#{{ $data->id }}</b>
                                                 </td>
-                                                <td class="row">
-                                                    <div class="col-4">
-                                                        <img src="{{ env('AWS_STORAGE_PATH') . '/public/covers/' . $data->cover }}"
-                                                            width="100%" alt="cover">
-                                                    </div>
-                                                    <div class="col-auto col-8" style="overflow: hidden">
-                                                        <span class="row amaranth-regular"
-                                                            style="font-size: 16px; color: black;">{{ $data->title }}</span>
-                                                        <span class="row urbanist-medium"
-                                                            style="font-size: 12px; color: #7F7F7F;">{{ $data->author }}</span>
-                                                        <span class="row urbanist-medium"
-                                                            style="font-size: 12px; color: #7F7F7F;">ISBN :
-                                                            {{ $data->isbn }}</span>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <img src="{{ env('AWS_STORAGE_PATH') . '/public/covers/' . $data->cover }}"
+                                                                width="100%" alt="cover">
+                                                        </div>
+                                                        <div class="col-auto col-8" style="overflow: hidden">
+                                                            <span class="row amaranth-regular"
+                                                                style="font-size: 16px; color: black;">{{ $data->title }}</span>
+                                                            <span class="row urbanist-medium"
+                                                                style="font-size: 12px; color: #7F7F7F;">{{ $data->author }}</span>
+                                                            <span class="row urbanist-medium"
+                                                                style="font-size: 12px; color: #7F7F7F;">ISBN :
+                                                                {{ $data->isbn }}</span>
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
                                                     {{ $data->name }}
                                                 </td>
                                                 <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
-                                                    {{ $data->created_at }}
+                                                    {{  date('F j, Y', strtotime($data->created_at)) }}
                                                 </td>
                                                 <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
-                                                    {{ $data->created_at }}
+                                                    {{  date('F j, Y', strtotime($data->return_at)) }}
                                                 </td>
                                                 <td class="urbanist-medium" style="font-size: 16px; color: #7F7F7F;">
                                                     @switch($data->status)
@@ -119,6 +121,10 @@
                                                         @default
                                                             <span class="badge text-bg-primary">Dalam Proses</span>
                                                     @endswitch
+
+                                                    @if ($data->is_late)
+                                                        <span class="badge text-bg-danger">Pengembalian telat</span>
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     @if ($data->status == config('constants.peminjaman.status.1'))
@@ -148,7 +154,7 @@
                                                                 </form>
                                                             </div>
                                                         </div>
-                                                    @elseif ($data->status == config('constants.peminjaman.status.4'))
+                                                    @elseif ($data->status == config('constants.peminjaman.status.2'))
                                                         <div class="row">
                                                             <div class="col">
                                                                 <form action="{{ route('peminjaman.update') }}"
@@ -159,7 +165,7 @@
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $data->id }}">
                                                                     <button style="font-size: 14px;"
-                                                                        class="btn btn-success">Buku diterima</button>
+                                                                        class="btn btn-success">Buku dikembalikan</button>
                                                                 </form>
                                                             </div>
                                                             <div class="col">

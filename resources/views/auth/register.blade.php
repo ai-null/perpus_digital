@@ -60,7 +60,7 @@
                         </div>
 
                         <button class="w-100 btn btn-primary"
-                            style="margin-top: 36px; background-color: #6499E9;">Masuk</button>
+                            style="margin-top: 36px; background-color: #6499E9;">Daftar</button>
 
                         <div style="margin-top: 36px;" class="text-center">
                             <span>Sudah punya akun? <a style="color: #1746A2; text-decoration: none;"
