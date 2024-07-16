@@ -106,12 +106,12 @@
                         class="btn btn-primary" style="urbanist-semibold" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">Pinjam Buku</button>
 
-                    <form action="{{ route('book.borrow', base64_encode($book->id)) }}" method="POST">
+                    {{-- <form action="{{ route('book.borrow', base64_encode($book->id)) }}" method="POST">
                         @csrf
                         <button 
                             style="width: 100%; background-color: white; border: 1px solid #6499E9; border-radius: 8px; color: #6499E9; margin-top: 16px; font-size: 16px;"
                             class="btn btn-primary" type="button" style="urbanist-semibold">Tambah ke Daftar Baca</button>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
             <div class="col ms-5">
