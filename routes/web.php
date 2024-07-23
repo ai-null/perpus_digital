@@ -24,6 +24,12 @@ Route::middleware([EnsureIsAdmin::class])->group(function () {
 
     Route::get('/category', [AdminController::class, 'showCategoryPage'])->name('category');
     Route::post('/category', [AdminController::class, 'addCategory'])->name('category');
+
+    Route::post('/category/update', [AdminController::class, 'updateCategory'])->name('category.update');
+    Route::get('/category/update', function () {
+        return redirect()->route('category');
+    })->name('category.update');
+
     Route::post('/category/delete', [AdminController::class, 'deleteCategory'])->name('category.delete');
     Route::get('/category/delete', function () {
         return redirect()->route('category');
