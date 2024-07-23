@@ -70,7 +70,7 @@
 ## Depedencies
 | Library | Description |
 | ------  | ----------- |
-| [FakerPHP]([https://github.com/bumptech/glide](https://fakerphp.org/)) | for database seeding |
+| [FakerPHP](https://fakerphp.org/) | for database seeding |
 | [FileSystem AWS S3](https://packagist.org/packages/league/flysystem-aws-s3-v3) | for storing image assets |
 
 <br/>
