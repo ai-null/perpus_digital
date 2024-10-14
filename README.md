@@ -55,7 +55,7 @@
    ```$ composer install```
 3. Run migrate
    
-   ```$ php artisan migrate```
+   ```$ php artisan migrate:fresh```
 4. (Optional) run seeder
    
    ```$ php artisan db:seed```
