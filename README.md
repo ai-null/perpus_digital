@@ -27,12 +27,12 @@
 
 ## Features
 - Users :
-    - view book catalog
-    - borrow book transaction
+    - book catalog dashboard
+    - book borrowing transaction
     - search & filter book by its categories
 - Admins :
     - analytics for book transaction
-    - book transaction management
+    - book reservation transaction management
     - categories management
     - books management
 
@@ -55,7 +55,7 @@
    ```$ composer install```
 3. Run migrate
    
-   ```$ php artisan migrate```
+   ```$ php artisan migrate:fresh```
 4. (Optional) run seeder
    
    ```$ php artisan db:seed```
