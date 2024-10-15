@@ -108,11 +108,11 @@ class DashboardController extends BaseController
         }
 
         // Get the S3 URL from the environment
-        $s3Url = env('AWS_STORAGE_PATH');
+        $s3Url = env('COVER_PATH');
 
         // Transform the cover URLs
         foreach ($paginator->items() as $book) {
-            $book->cover = $s3Url . '/public/covers/' . $book->cover;
+            $book->cover = $s3Url . $book->cover;
         }
 
         return view('user.dashboard', [
@@ -134,7 +134,7 @@ class DashboardController extends BaseController
         $book = Book::where('id', $decodedId)->first();
         $categories = $book->categories()->get();
 
-        $book->cover = env('AWS_STORAGE_PATH') . '/public/covers/' . $book->cover;
+        $book->cover = env('COVER_PATH') . $book->cover;
         return view('book/detail', [
             'book' => $book,
             'categories' => $categories,

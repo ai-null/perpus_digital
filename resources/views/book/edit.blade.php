@@ -159,7 +159,7 @@
 
                                 <div class="col-auto">
                                     <img id="imagePreview" style="height: 400px; width: 250px; object-fit: contain;"
-                                        src="{{ env('AWS_STORAGE_PATH') . '/public/covers/' . $book->cover }}" alt="cover preview">
+                                        src="{{ env('COVER_PATH') . $book->cover }}" alt="cover preview">
                                     <div class="input-group mt-3">
                                         <input type="file" accept="image/*" class="form-control" name="cover"
                                             id="cover" value="{{ $book->cover }}">

@@ -69,11 +69,11 @@ class AdminController extends BaseController
             $paginator = Book::all();
 
             // Get the S3 URL from the environment
-            $s3Url = env('AWS_STORAGE_PATH');
+            $s3Url = env('COVER_PATH');
 
             // Transform the cover URLs
             foreach ($paginator as $book) {
-                $book->cover = $s3Url . '/public/covers/' . $book->cover;
+                $book->cover = $s3Url . $book->cover;
             }
 
             return view('book.list', [

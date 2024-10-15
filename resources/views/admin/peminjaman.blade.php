@@ -65,7 +65,7 @@
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-4">
-                                                            <img src="{{ env('AWS_STORAGE_PATH') . '/public/covers/' . $data->cover }}"
+                                                            <img src="{{ env('COVER_PATH') . $data->cover }}"
                                                                 width="100%" alt="cover">
                                                         </div>
                                                         <div class="col-auto col-8" style="overflow: hidden">
