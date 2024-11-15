@@ -25,7 +25,7 @@
                         </div>
                     @endif
 
-                    <form method="post" action="{{ route('login') }}" style="margin-top: 52px;">
+                    <form method="post" action="{{ route('login') }}" autocomplete="on" style="margin-top: 52px;">
                         @csrf
                         <div class="mb-3">
                             <label for="nisn" class="form-label">NISN</label>
